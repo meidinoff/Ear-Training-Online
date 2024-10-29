@@ -14,5 +14,7 @@ export const renderExercise = (renderer) => {
     const context = renderer.getContext()
     context.clear()
 
-    chooseExercise(context)
+    const { stave, newNotes } = chooseExercise(context)
+
+    return { stave, newNotes, context }
 }

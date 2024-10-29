@@ -1,6 +1,7 @@
+import { formatNotes, drawVoices } from './noteDrawHelper'
 import Vex from 'vexflow'
 
-const { StaveNote, Formatter, Voice } = Vex.Flow
+const { StaveNote } = Vex.Flow
 
 const replaceBackground = (context, note, stave) => {
     //const boundingBox = note.getBoundingBox()
@@ -24,9 +25,7 @@ const replaceBackground = (context, note, stave) => {
     context.restore()
 }
 
-export const replaceNote = (context, exercise) => {
-    const { stave, notes } = exercise
-
+export const replaceNote = (context, stave, notes) => {
     // choose which note to replace
     const replaceIndex = 1
 
@@ -34,11 +33,7 @@ export const replaceNote = (context, exercise) => {
     notes[replaceIndex] = new StaveNote({keys: ["b/4"], duration: 'q'})
 
     // create Voice and add ticks to all notes, then format everything
-    const voices = [
-        new Voice({ num_beats: 3, beat_value: 4 }).addTickables(notes)
-    ]
-
-    new Formatter().joinVoices(voices).format(voices, 350)
+    const voices = formatNotes(notes)
 
     // create background overlay behind replaced note
     const newNote = notes[replaceIndex]
@@ -48,7 +43,7 @@ export const replaceNote = (context, exercise) => {
     newNote.setStyle({ fillStyle: 'none', strokeStyle: 'none' })
 
     // redraw notes
-    voices.forEach(voice => {
-        voice.draw(context, stave)
-    })
+    const newNotes = drawVoices(voices, context, stave)
+
+    return newNotes
 }

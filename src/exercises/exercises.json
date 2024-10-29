@@ -1,0 +1,20 @@
+{
+    "00001": {
+        "clef": "treble",
+        "time_signature": "3/4",
+        "notes": [
+            {
+                "keys": ["c#/4"],
+                "duration": "q"
+            },
+            {
+                "keys": ["d/4"],
+                "duration": "q"
+            },
+            {
+                "keys": ["d/5"],
+                "duration": "q"
+            }
+        ]
+    }
+}

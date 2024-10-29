@@ -8,9 +8,9 @@ const exampleExercise = () => {
     const time_signature = "4/4"
 
     const notes = [
-        new StaveNote({ keys: ["c/4"], duration: 'q'}).addModifier(new Accidental("#")),
+        new StaveNote({ keys: ["c#/4"], duration: 'q'}).addModifier(new Accidental("#")),
         new StaveNote({ keys: ["d/4", "e/4"], duration: 'q'}),
-        new StaveNote({ keys: ["b/4"], duration: 'qr'})
+        new StaveNote({ keys: ["d/5"], duration: 'q'})
     ]
 
     return {
