@@ -8,8 +8,8 @@ export const createRenderer = (canvas) => {
 }
 
 export const renderExercise = (renderer) => {
-    const canvasWidth = 500
-    const canvasHeight = 200
+    const canvasWidth = 420
+    const canvasHeight = 120
     renderer.resize(canvasWidth, canvasHeight)
     const context = renderer.getContext()
     context.clear()

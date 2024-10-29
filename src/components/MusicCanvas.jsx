@@ -23,7 +23,7 @@ const MusicCanvas = (props) => {
 
     return (
         <div>
-            <div ref={canvasRef}></div>
+            <div ref={canvasRef} style={{border: "solid black"}}></div>
             {props.children}
         </div>
     )

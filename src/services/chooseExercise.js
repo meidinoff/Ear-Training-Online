@@ -1,19 +1,17 @@
-import Vex from 'vexflow'
 import exampleExercise from '../exercises/example_exercise'
-
-const { Formatter } = Vex.Flow
+import { replaceNote } from './replaceNote'
 
 const chooseExercise = (context) => {
-    const { stave, clef, time_signature, voices } = exampleExercise()
+    const originalExample = exampleExercise()
+
+    const stave = originalExample.stave
+    const clef = originalExample.clef
+    const time_signature = originalExample.time_signature
 
     stave.addClef(clef).addTimeSignature(time_signature)
     stave.setContext(context).draw()
-            
-    new Formatter().joinVoices(voices).format(voices, 350)
-        
-    voices.forEach(voice => {
-        voice.draw(context, stave)
-    })
+
+    replaceNote(context, originalExample)
 }
 
 export default chooseExercise
