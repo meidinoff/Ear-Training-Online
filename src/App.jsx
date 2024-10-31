@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import MusicCanvas from './components/MusicCanvas'
+import TestRender from './components/TestRender'
 
 const App = () => {
   // const [count, setCount] = useState(0)

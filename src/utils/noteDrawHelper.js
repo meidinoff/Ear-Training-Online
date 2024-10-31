@@ -1,6 +1,6 @@
 import Vex from 'vexflow'
 
-const { Voice, Formatter } = Vex.Flow
+const { Voice, Formatter, Stem } = Vex.Flow
 
 export const calculatePitch = (mouseY, stave) => {
     const pitches = ['c', 'd', 'e', 'f', 'g', 'a', 'b']
@@ -20,6 +20,22 @@ export const calculatePitch = (mouseY, stave) => {
     return key    
 }
 
+const calculateStemDirection = (notes) => {
+    let lineSum = 0;
+    notes.forEach((note) => {
+      if (note.keyProps) {
+        note.keyProps.forEach((keyProp) => {
+          lineSum += keyProp.line - 3;
+        });
+      }
+    });
+  
+    if (lineSum >= 0) {
+      return Stem.DOWN;
+    }
+    return Stem.UP;
+  }
+
 export const formatNotes = (notes) => {
     const voices = [
         new Voice({ num_beats: notes.length, beat_value: 4 }).addTickables(notes)
@@ -31,13 +47,19 @@ export const formatNotes = (notes) => {
 }
 
 export const drawVoices = (voices, context, stave) => {
-    voices.forEach(voice => {
-        voice.draw(context, stave)
-    })
-
     const notes = voices.map(voice => {
         return voice.getTickables()
     }).flat()
+
+    notes.map(note => {
+        const direction = calculateStemDirection([note])
+        console.log("direction: ", direction)
+        note.setStemDirection(direction)
+    })
+    
+    voices.forEach(voice => {
+        voice.draw(context, stave)
+    })
 
     return notes
 }

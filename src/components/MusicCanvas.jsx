@@ -83,7 +83,7 @@ const MusicCanvas = (props) => {
 
     return (
         <div onMouseMove={handleMouseMove} style={{ position: 'relative' }}>
-            <div ref={canvasRef} onClick={handleClick} style={{ border: 'solid black', position: 'relative', zIndex: 1 }}></div>
+            <div ref={canvasRef} onClick={handleClick} style={{ border: 'solid black', backgroundColor: 'white', position: 'relative', zIndex: 1 }}></div>
             <div ref={hoverCanvasRef} style={{ position: 'absolute', top: 0, left: 0, zIndex: 2, pointerEvents: 'none' }}></div>
             {props.children}
         </div>
