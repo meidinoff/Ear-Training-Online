@@ -1,10 +1,9 @@
 import { useState } from 'react'
-import { createMidi, playMidi } from '../utils/midi-playback'
+import { playMidi } from '../utils/midi-playback'
 
 const BottomButtons = ({ answered, questionMidi, answerMidi }) => {
     const [correct, setCorrect] = useState(null)
 
-    console.log('button answered:', answered)
     const styles = {
         margin: "20px auto",
         display: "flex",
@@ -12,7 +11,6 @@ const BottomButtons = ({ answered, questionMidi, answerMidi }) => {
     }
 
     const playAudio = () => {
-        console.log(answered)
         playMidi(questionMidi)
     }
 
@@ -43,7 +41,6 @@ const BottomButtons = ({ answered, questionMidi, answerMidi }) => {
     }
 
     const handleSubmit = () => {
-        console.log(correct)
         deepEqual(questionMidi, answerMidi) ?
             setCorrect(true) :
             setCorrect(false)
