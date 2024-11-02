@@ -4,10 +4,11 @@ import { playMidi } from '../utils/midi-playback'
 const BottomButtons = ({ answered, questionMidi, answerMidi }) => {
     const [correct, setCorrect] = useState(null)
 
-    const styles = {
+    const containerStyle = {
         margin: "20px auto",
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
+        rowGap: "5px"
     }
 
     const playAudio = () => {
@@ -47,7 +48,7 @@ const BottomButtons = ({ answered, questionMidi, answerMidi }) => {
     }
 
     return (
-        <div style={styles}>
+        <div style={containerStyle}>
             {
                 correct === null ?
                 <p style={{ margin: "0 auto" }}></p> :
@@ -61,7 +62,7 @@ const BottomButtons = ({ answered, questionMidi, answerMidi }) => {
                     <button type="button" onClick={handleSubmit}>Submit</button> :
                     correct ?
                         <button type="button">Next Question</button> :
-                        <div style={{ display: "flex", flexDirection: "column" }}>
+                        <div style={{ display: "flex", flexDirection: "column", rowGap: "5px" }}>
                             <button type="button" onClick={playWrongAnswer}>Play Your Answer</button>
                             <button type="button" onClick={handleSubmit}>Submit</button>
                         </div>
