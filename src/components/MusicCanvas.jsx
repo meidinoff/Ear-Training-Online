@@ -1,7 +1,9 @@
 import { useRef, useEffect, useState } from 'react'
+import BottomButtons from './BottomButtons'
 import { createRenderer, renderExercise } from '../utils/renderCanvas'
 import { drawHoverNote } from '../utils/hoverEffect'
 import { calculatePitch, drawNotes } from '../utils/noteDrawHelper'
+import { createMidi } from '../utils/midi-playback'
 import Vex from 'vexflow'
 
 const { Renderer, StaveNote } = Vex.Flow
@@ -17,6 +19,9 @@ const MusicCanvas = (props) => {
     const [notes, setNotes] = useState(null)
     const [stave, setStave] = useState(null)
     const [hoverNotePitch, setHoverNotePitch] = useState(null)
+    const [answered, setAnswered] = useState(false)
+    const [questionMidi, setQuestionMidi] = useState('')
+    const [answerMidi, setAnswerMidi] = useState('')
 
     useEffect(() => {
         if (canvasRef.current) {
@@ -24,10 +29,11 @@ const MusicCanvas = (props) => {
                 rendererRef.current = createRenderer(canvasRef.current)
             }
 
-            const { stave, newNotes, context } = renderExercise(rendererRef.current)
+            const { stave, newNotes, context, midiData } = renderExercise(rendererRef.current)
             setContext(context)
             setStave(stave)
             setNotes(newNotes)
+            setQuestionMidi(midiData)
         }
 
         return () => {
@@ -77,8 +83,23 @@ const MusicCanvas = (props) => {
         const newDrawnNotes = drawNotes(updatedNotes, context, stave)
 
         setNotes(newDrawnNotes)
-        console.log("notes: ", notes)
-        console.log("stem direction: ", notes[1].stem.stem_direction)
+        console.log("newDrawnNotes", newDrawnNotes)
+        const midiData = createMidi({
+            "clef": "treble",
+            "time_signature": "3/4",
+            "notes": newDrawnNotes.reduce((notes, note) => {
+                notes.push({
+                    "keys": note.keys,
+                    "duration": note.duration
+                })
+
+                return notes
+            }, [])
+        })
+        console.log("answer midi data:", midiData)
+        setAnswerMidi(midiData)
+        setAnswered(true)
+        console.log('answered: ', answered)
     }
 
     return (
@@ -86,6 +107,7 @@ const MusicCanvas = (props) => {
             <div ref={canvasRef} onClick={handleClick} style={{ border: 'solid black', backgroundColor: 'white', position: 'relative', zIndex: 1 }}></div>
             <div ref={hoverCanvasRef} style={{ position: 'absolute', top: 0, left: 0, zIndex: 2, pointerEvents: 'none' }}></div>
             {props.children}
+            <BottomButtons answered={answered} questionMidi={questionMidi} answerMidi={answerMidi} />
         </div>
     )
 }

@@ -14,7 +14,7 @@ export const renderExercise = (renderer) => {
     const context = renderer.getContext()
     context.clear()
 
-    const { stave, newNotes } = chooseExercise(context)
+    const { stave, newNotes, midiData } = chooseExercise(context)
 
-    return { stave, newNotes, context }
+    return { stave, newNotes, context, midiData }
 }

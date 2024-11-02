@@ -16,7 +16,6 @@ const construct = ({ clef, timeSignature, notes }, context) => {
         
         note.keys.forEach(key => {
             const matches = key.match(regex)
-            console.log("regex matches: ", matches)
             if (matches) {
                 staveNote.addModifier(new Accidental(matches))
             }

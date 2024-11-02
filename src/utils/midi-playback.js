@@ -22,39 +22,20 @@ const noteToMidi = (note) => {
     };
 
     const noteParts = note.split('/')
-    console.log("noteParts", noteParts)
     const letter = noteParts[0]
     const octave = Number(noteParts[1])
-    console.log(letter, octave)
 
     const pitchClass = noteMap[letter.toUpperCase()]
-    console.log("pitchClass", pitchClass)
 
     const midiNumber = (octave + 1) * 12 + pitchClass
-    console.log("1", (octave + 1))
-    console.log("2", pitchClass)
-    console.log("3", midiNumber)
 
     return midiNumber
 }
 
-export const createMidi = () => {
+export const createMidi = (data) => {
     const bpm = 100
-    const timeSignature = ("3/4").split('/')
-    const notes = [
-        {
-            "keys": ["c#/4"],
-            "duration": "q"
-        },
-        {
-            "keys": ["d/4"],
-            "duration": "q"
-        },
-        {
-            "keys": ["d/5"],
-            "duration": "q"
-        }
-    ]
+    const timeSignature = data.time_signature.split('/')
+    const notes = data.notes
 
     const midiData = {
         header: {
@@ -101,6 +82,8 @@ export const createMidi = () => {
         ]
     }
 
+    console.log(midiData)
+
     return midiData
 }
 
@@ -117,7 +100,6 @@ export const playMidi = async (midiData) => {
         let currentTime = startTime
 
         track.events.forEach(event => {
-            console.log("EVENT", event)
             const eventTime = (event.deltaTime / ticksPerBeat) * secondsPerBeat
             currentTime += eventTime
 
