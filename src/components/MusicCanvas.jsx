@@ -24,6 +24,7 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
     const [questionMidi, setQuestionMidi] = useState('')
     const [answerMidi, setAnswerMidi] = useState('')
     const [pitchPosition, setPitchPosition] = useState('')
+    const [exercise, setExercise] = useState('')
 
     useEffect(() => {
         if (canvasRef.current) {
@@ -31,12 +32,14 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
                 rendererRef.current = createRenderer(canvasRef.current)
             }
 
-            const { stave, newNotes, context, midiData, answerNotes } = renderExercise(rendererRef.current)
+            const { stave, newNotes, context, midiData, answerNotes, exerciseData } = renderExercise(rendererRef.current)
             setContext(context)
+            console.log(stave)
             setStave(stave)
             setNotes(newNotes)
             setQuestionMidi(midiData)
             setAnswerNotes(answerNotes)
+            setExercise(exerciseData)
         }
 
         return () => {
@@ -54,7 +57,7 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
         }
 
         if (notes && hoverContext.current && stave) {
-            drawHoverNote(hoverContext.current, hoverNotePitch, notes[1].getAbsoluteX(), stave)
+            drawHoverNote(hoverContext.current, hoverNotePitch, notes[1].getAbsoluteX(), stave, exercise)
         }
     }, [hoverNotePitch, notes, stave])
 
@@ -165,9 +168,11 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
     }
 
     return (
-        <div onMouseMove={handleMouseMove} style={{ position: 'relative' }}>
-            <div ref={canvasRef} onClick={handleClick} style={{ border: 'solid black', backgroundColor: 'white', position: 'relative', zIndex: 1 }}></div>
-            <div ref={hoverCanvasRef} style={{ position: 'absolute', top: 0, left: 0, zIndex: 2, pointerEvents: 'none' }}></div>
+        <div style={{ position: 'relative' }}>
+            <div onMouseMove={handleMouseMove} style={{ position: 'relative', margin: '20px auto', height: '130px' }}>
+                <div ref={canvasRef} onClick={handleClick} style={{ border: 'solid black', backgroundColor: 'white', position: 'absolute', top: '0', left: '0', right: '0', zIndex: 1 }}></div>
+                <div ref={hoverCanvasRef} style={{ position: 'absolute', top: 0, left: 0, right: '0', zIndex: 2, pointerEvents: 'none' }}></div>
+            </div>
             <BottomButtons answered={answered} questionMidi={questionMidi} answerMidi={answerMidi} answerNotes={answerNotes} inputNotes={inputNotes} setBackgroundColor={setBackgroundColor} />
         </div>
     )

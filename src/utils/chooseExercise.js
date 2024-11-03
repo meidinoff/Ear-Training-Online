@@ -16,7 +16,7 @@ const chooseExercise = (context) => {
     const newNotes = input.newNotes
     const answerNotes = answer.notes
 
-    return { stave, newNotes, midiData, answerNotes }
+    return { stave, newNotes, midiData, answerNotes, exerciseData: exercise }
 }
 
 export default chooseExercise
