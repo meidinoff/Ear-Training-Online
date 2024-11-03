@@ -30,7 +30,7 @@ export const replaceNote = (context, stave, notes) => {
     const replaceIndex = 1
 
     // replace note with 1/4 note B
-    notes[replaceIndex] = new StaveNote({keys: ["b/4"], duration: 'q'})
+    notes[replaceIndex] = new StaveNote({keys: ["c/7"], duration: 'q'})
 
     // create Voice and add ticks to all notes, then format everything
     const voices = formatNotes(notes)
@@ -41,6 +41,7 @@ export const replaceNote = (context, stave, notes) => {
 
     // make replaced note invisible
     newNote.setStyle({ fillStyle: 'none', strokeStyle: 'none' })
+    newNote.setLedgerLineStyle({ strokeStyle: 'none' })
 
     // redraw notes
     const newNotes = drawVoices(voices, context, stave)

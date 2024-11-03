@@ -1,5 +1,31 @@
 #root {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+header {
+  display: block;
+  align-items: stretch;
+  text-align: center;
+  margin: 0;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  padding: 10px 0;
+  background-color: purple;
+}
+
+#appArea {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100px;
+  bottom: 0;
   margin: 0 auto;
-  padding: 2rem 0;
+  padding: 50px 5rem 0;
   text-align: center;
 }

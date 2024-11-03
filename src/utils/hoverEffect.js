@@ -9,8 +9,10 @@ export const drawHoverNote = (context, hoverNotePitch, questionNoteX, exerciseSt
         const noteX = questionNoteX - 16
 
         const hoverStave = new Stave(exerciseStave.x, exerciseStave.y + 2, exerciseStave.width)
-        hoverStave.setStyle({ strokeStyle: 'none' })
+        hoverStave.setStyle({  }) //strokeStyle: 'none'
         hoverStave.setContext(context).draw()
+
+        // FIGURE OUT HOW TO SEND CLEF AND TIME SIGNATURE HERE TO RENDER THEM INVISIBLE
 
         const note = new StaveNote({ keys: [hoverNotePitch], duration: 'q' })
         note.setStyle({ fillStyle: 'rgba(0, 0, 0, 0.1)', strokeStyle: 'none' })

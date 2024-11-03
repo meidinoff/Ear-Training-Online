@@ -4,9 +4,9 @@ import Vex from 'vexflow'
 
 const { Stave, StaveNote, Accidental } = Vex.Flow
 
-const construct = ({ clef, timeSignature, notes }, context) => {
+const construct = ({ clef, time_signature, notes }, context) => {
     const stave = new Stave(0, 0, 400)
-    stave.addClef(clef).addTimeSignature(timeSignature)
+    stave.addClef(clef).addTimeSignature(time_signature)
     stave.setContext(context).draw()
 
     const staveNotes = notes.map(note => {
@@ -44,7 +44,7 @@ export const constructAnswer = (exercise, context) => {
     }
 }
 
-export const constructQuestion = (exercise, context) => {
+export const constructInput = (exercise, context) => {
     const { stave, notes } = construct(exercise, context)
 
     const newNotes = replaceNote(context, stave, notes)

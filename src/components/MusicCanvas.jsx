@@ -17,8 +17,8 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
 
     const [context, setContext] = useState(null)
     const [notes, setNotes] = useState(null)
-    const [questionNotes, setQuestionNotes] = useState(null)
     const [answerNotes, setAnswerNotes] = useState(null)
+    const [inputNotes, setInputNotes] = useState(null)
     const [stave, setStave] = useState(null)
     const [hoverNotePitch, setHoverNotePitch] = useState(null)
     const [questionMidi, setQuestionMidi] = useState('')
@@ -31,12 +31,12 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
                 rendererRef.current = createRenderer(canvasRef.current)
             }
 
-            const { stave, newNotes, context, midiData, questionNotes } = renderExercise(rendererRef.current)
+            const { stave, newNotes, context, midiData, answerNotes } = renderExercise(rendererRef.current)
             setContext(context)
             setStave(stave)
             setNotes(newNotes)
             setQuestionMidi(midiData)
-            setQuestionNotes(questionNotes)
+            setAnswerNotes(answerNotes)
         }
 
         return () => {
@@ -134,7 +134,7 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
         const newDrawnNotes = drawNotes(updatedNotes, context, stave)
 
         setNotes(newDrawnNotes)
-        setAnswerNotes(newDrawnNotes)
+        setInputNotes(newDrawnNotes)
         console.log("NOTES: ", notes)
         console.log("newDrawnNotes", newDrawnNotes)
         const midiData = createMidi({
@@ -168,7 +168,7 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
         <div onMouseMove={handleMouseMove} style={{ position: 'relative' }}>
             <div ref={canvasRef} onClick={handleClick} style={{ border: 'solid black', backgroundColor: 'white', position: 'relative', zIndex: 1 }}></div>
             <div ref={hoverCanvasRef} style={{ position: 'absolute', top: 0, left: 0, zIndex: 2, pointerEvents: 'none' }}></div>
-            <BottomButtons answered={answered} questionMidi={questionMidi} answerMidi={answerMidi} questionNotes={questionNotes} answerNotes={answerNotes} setBackgroundColor={setBackgroundColor} />
+            <BottomButtons answered={answered} questionMidi={questionMidi} answerMidi={answerMidi} answerNotes={answerNotes} inputNotes={inputNotes} setBackgroundColor={setBackgroundColor} />
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import exercises from '../exercises/exercises.json'
-import { constructAnswer, constructQuestion } from './constructExercise'
+import { constructAnswer, constructInput } from './constructExercise'
 import { createMidi } from './midi-playback'
 
 const chooseExercise = (context) => {
@@ -10,13 +10,13 @@ const chooseExercise = (context) => {
     const midiData = createMidi(exercise)
 
     const answer = constructAnswer(exercise, context)
-    const question = constructQuestion(exercise, context)
+    const input = constructInput(exercise, context)
     
-    const stave = question.stave
-    const newNotes = question.newNotes
-    const questionNotes = answer.notes
+    const stave = input.stave
+    const newNotes = input.newNotes
+    const answerNotes = answer.notes
 
-    return { stave, newNotes, midiData, questionNotes }
+    return { stave, newNotes, midiData, answerNotes }
 }
 
 export default chooseExercise

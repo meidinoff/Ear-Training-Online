@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import './App.css'
-import Header from './components/Header'
 import MusicControls from './components/MusicControls'
 import MusicCanvas from './components/MusicCanvas'
 import TestRender from './components/TestRender'
@@ -12,14 +11,24 @@ const App = () => {
   const [backgroundColor, setBackgroundColor] = useState('white')
 
   return (
-    <div style={{ backgroundColor: backgroundColor}}>
-      <Header />
-      <p style={{ marginTop: "90px", color: "black" }}>Input the missing note below</p>
-      <div>
-        <MusicControls answered={answered} setAccidental={setAccidental} setRedraw={setRedraw} />
-        <MusicCanvas answered={answered} setAnswered={setAnswered} inputAccidental={accidental} resetAccidental={setAccidental} redrawNote={redrawNote} setRedraw={setRedraw} setBackgroundColor={setBackgroundColor}>
+    <div>
+      <header>
+        <div style={{ display: "flex" }}>
+          <h1 style={{ fontSize: "36px" }}>Aural Skills Training</h1>
+          <div style={{ display: "flex" }}>
+            <a href="">About</a>
+            <a href="">GitHub</a>
+          </div>
+        </div>
+      </header>
+      <div id="appArea" style={{ backgroundColor: backgroundColor}}>
+        <p style={{ color: "black" }}>Input the missing note below</p>
+        <div>
+          <MusicControls answered={answered} setAccidental={setAccidental} setRedraw={setRedraw} />
+          <MusicCanvas answered={answered} setAnswered={setAnswered} inputAccidental={accidental} resetAccidental={setAccidental} redrawNote={redrawNote} setRedraw={setRedraw} setBackgroundColor={setBackgroundColor}>
           
-        </MusicCanvas>
+          </MusicCanvas>
+        </div>
       </div>
     </div>
   )

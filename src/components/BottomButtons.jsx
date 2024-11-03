@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { playMidi } from '../utils/midi-playback'
 
-const BottomButtons = ({ answered, questionMidi, answerMidi, questionNotes, answerNotes, setBackgroundColor }) => {
+const BottomButtons = ({ answered, questionMidi, answerMidi, answerNotes, inputNotes, setBackgroundColor }) => {
     const [correct, setCorrect] = useState(null)
 
     const containerStyle = {
@@ -71,10 +71,10 @@ const BottomButtons = ({ answered, questionMidi, answerMidi, questionNotes, answ
     }
 
     const handleSubmit = () => {
-        const question = questionNotes.map(returnKeysAndDur)
         const answer = answerNotes.map(returnKeysAndDur)
+        const input = inputNotes.map(returnKeysAndDur)
 
-        if (arraysEqual(question, answer)) {
+        if (arraysEqual(answer, input)) {
             setCorrect(true)
             setBackgroundColor('green')
         } else {
