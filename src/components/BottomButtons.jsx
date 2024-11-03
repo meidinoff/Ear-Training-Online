@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { playMidi } from '../utils/midi-playback'
 
-const BottomButtons = ({ answered, questionMidi, answerMidi }) => {
+const BottomButtons = ({ answered, questionMidi, answerMidi, questionNotes, answerNotes, setBackgroundColor }) => {
     const [correct, setCorrect] = useState(null)
 
     const containerStyle = {
@@ -17,6 +17,35 @@ const BottomButtons = ({ answered, questionMidi, answerMidi }) => {
 
     const playWrongAnswer = () => {
         playMidi(answerMidi)
+    }
+
+    const returnKeysAndDur = obj => {
+        const { keys, duration, ...rest } = obj
+        const values = {
+            keys,
+            duration
+        }
+        return values
+    }
+
+    const arraysEqual = (array1, array2) => {
+        if (array1.length !== array2.length) {
+            console.log(`Array lengths differ: ${array1.length} vs ${array2.length}`)
+            return false
+        }
+
+        const array2Copy = [...array2]
+
+        for (let obj1 of array1) {
+            const index = array2Copy.findIndex(obj2 => deepEqual(obj1, obj2))
+            if (index === -1) {
+                console.log(`No matching object found for:`, obj1)
+                return false
+            }
+            array2Copy.splice(index, 1)
+        }
+
+        return true
     }
 
     const deepEqual = (obj1, obj2) => {
@@ -42,9 +71,16 @@ const BottomButtons = ({ answered, questionMidi, answerMidi }) => {
     }
 
     const handleSubmit = () => {
-        deepEqual(questionMidi, answerMidi) ?
-            setCorrect(true) :
+        const question = questionNotes.map(returnKeysAndDur)
+        const answer = answerNotes.map(returnKeysAndDur)
+
+        if (arraysEqual(question, answer)) {
+            setCorrect(true)
+            setBackgroundColor('green')
+        } else {
             setCorrect(false)
+            setBackgroundColor('red')
+        }
     }
 
     return (
