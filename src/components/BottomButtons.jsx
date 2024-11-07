@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { playMidi } from '../utils/midi-playback'
 
-const BottomButtons = ({ answered, questionMidi, answerMidi, answerNotes, inputNotes, setBackgroundColor }) => {
+const BottomButtons = ({ answered, setAnswered, questionMidi, answerMidi, answerNotes, inputNotes, setBackgroundColor, createExercise }) => {
     const [correct, setCorrect] = useState(null)
 
     const containerStyle = {
@@ -74,6 +74,9 @@ const BottomButtons = ({ answered, questionMidi, answerMidi, answerNotes, inputN
         const answer = answerNotes.map(returnKeysAndDur)
         const input = inputNotes.map(returnKeysAndDur)
 
+        console.log("correct answer:", answer)
+        console.log("your answer:", input)
+
         if (arraysEqual(answer, input)) {
             setCorrect(true)
             setBackgroundColor('green')
@@ -81,6 +84,13 @@ const BottomButtons = ({ answered, questionMidi, answerMidi, answerNotes, inputN
             setCorrect(false)
             setBackgroundColor('red')
         }
+    }
+
+    const nextQuestion = () => {
+        createExercise()
+        setBackgroundColor('white')
+        setCorrect(null)
+        setAnswered(false)
     }
 
     return (
@@ -97,7 +107,7 @@ const BottomButtons = ({ answered, questionMidi, answerMidi, answerNotes, inputN
                 correct === null ?
                     <button type="button" onClick={handleSubmit}>Submit</button> :
                     correct ?
-                        <button type="button">Next Question</button> :
+                        <button type="button" onClick={nextQuestion}>Next Question</button> :
                         <div style={{ display: "flex", flexDirection: "column", rowGap: "5px" }}>
                             <button type="button" onClick={playWrongAnswer}>Play Your Answer</button>
                             <button type="button" onClick={handleSubmit}>Submit</button>

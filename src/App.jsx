@@ -15,19 +15,21 @@ const App = () => {
       <header>
         <div style={{ display: "flex" }}>
           <h1 style={{ fontSize: "36px" }}>Aural Skills Training</h1>
-          <div style={{ display: "flex" }}>
+          <div id="menu-bar" style={{ display: "flex" }}>
             <a href="">About</a>
             <a href="">GitHub</a>
           </div>
         </div>
       </header>
-      <div id="appArea" style={{ backgroundColor: backgroundColor}}>
-        <p style={{ color: "black" }}>Input the missing note below</p>
-        <div>
-          <MusicControls answered={answered} setAccidental={setAccidental} setRedraw={setRedraw} />
-          <MusicCanvas answered={answered} setAnswered={setAnswered} inputAccidental={accidental} resetAccidental={setAccidental} redrawNote={redrawNote} setRedraw={setRedraw} setBackgroundColor={setBackgroundColor}>
+      <div id="background" style={{ backgroundColor: backgroundColor}}>
+        <div id="appArea">
+          <p style={{ color: "black" }}>Input the missing note below</p>
+          <div>
+            <MusicControls answered={answered} setAccidental={setAccidental} setRedraw={setRedraw} />
+            <MusicCanvas answered={answered} setAnswered={setAnswered} inputAccidental={accidental} resetAccidental={setAccidental} redrawNote={redrawNote} setRedraw={setRedraw} setBackgroundColor={setBackgroundColor}>
           
-          </MusicCanvas>
+            </MusicCanvas>
+          </div>
         </div>
       </div>
     </div>

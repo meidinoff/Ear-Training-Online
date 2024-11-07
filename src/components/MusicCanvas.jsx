@@ -32,14 +32,7 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
                 rendererRef.current = createRenderer(canvasRef.current)
             }
 
-            const { stave, newNotes, context, midiData, answerNotes, exerciseData } = renderExercise(rendererRef.current)
-            setContext(context)
-            console.log(stave)
-            setStave(stave)
-            setNotes(newNotes)
-            setQuestionMidi(midiData)
-            setAnswerNotes(answerNotes)
-            setExercise(exerciseData)
+            createExercise()
         }
 
         return () => {
@@ -48,6 +41,17 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
             }
         }
     }, [])
+
+    const createExercise = () => {
+        const { stave, newNotes, context, midiData, answerNotes, exerciseData } = renderExercise(rendererRef.current)
+        setContext(context)
+        console.log(stave)
+        setStave(stave)
+        setNotes(newNotes)
+        setQuestionMidi(midiData)
+        setAnswerNotes(answerNotes)
+        setExercise(exerciseData)
+    }
 
     useEffect(() => {
         if (hoverCanvasRef.current && !hoverRendererRef.current) {
@@ -173,7 +177,7 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
                 <div ref={canvasRef} onClick={handleClick} style={{ border: 'solid black', backgroundColor: 'white', position: 'absolute', top: '0', left: '0', right: '0', zIndex: 1 }}></div>
                 <div ref={hoverCanvasRef} style={{ position: 'absolute', top: 0, left: 0, right: '0', zIndex: 2, pointerEvents: 'none' }}></div>
             </div>
-            <BottomButtons answered={answered} questionMidi={questionMidi} answerMidi={answerMidi} answerNotes={answerNotes} inputNotes={inputNotes} setBackgroundColor={setBackgroundColor} />
+            <BottomButtons answered={answered} setAnswered={setAnswered} questionMidi={questionMidi} answerMidi={answerMidi} answerNotes={answerNotes} inputNotes={inputNotes} setBackgroundColor={setBackgroundColor} createExercise={createExercise} />
         </div>
     )
 }

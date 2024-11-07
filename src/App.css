@@ -16,10 +16,22 @@ header {
   right: 0;
   top: 0;
   padding: 10px 0;
-  background-color: lightcoral;
+  background-color: lightskyblue;
 }
 
-#appArea {
+header > div {
+  margin: 0 auto;
+  padding: 0 5vw;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#menu-bar {
+  display: flex;
+  column-gap: 10px;
+}
+
+#background {
   position: absolute;
   left: 0;
   right: 0;
@@ -28,4 +40,10 @@ header {
   margin: 0 auto;
   padding: 50px 5rem 0;
   text-align: center;
+}
+
+#appArea {
+  min-width: 450px;
+  max-width: 650px;
+  margin: 0 auto;
 }
