@@ -3,6 +3,7 @@ import { playMidi } from '../utils/midi-playback'
 
 const BottomButtons = ({ answered, setAnswered, questionMidi, answerMidi, answerNotes, inputNotes, setBackgroundColor, createExercise }) => {
     const [correct, setCorrect] = useState(null)
+    const [midiIsPlaying, setMidiIsPlaying] = useState(false)
 
     const containerStyle = {
         margin: "20px auto",
@@ -12,11 +13,15 @@ const BottomButtons = ({ answered, setAnswered, questionMidi, answerMidi, answer
     }
 
     const playAudio = () => {
-        playMidi(questionMidi)
+        if (!midiIsPlaying) {
+            playMidi(questionMidi, () => setMidiIsPlaying(true), () => setMidiIsPlaying(false))
+        }
     }
 
     const playWrongAnswer = () => {
-        playMidi(answerMidi)
+        if (!midiIsPlaying) {
+            playMidi(answerMidi, () => setMidiIsPlaying(true), () => setMidiIsPlaying(false))
+        }
     }
 
     const returnKeysAndDur = obj => {
@@ -100,7 +105,7 @@ const BottomButtons = ({ answered, setAnswered, questionMidi, answerMidi, answer
                 <p style={{ margin: "0 auto" }}></p> :
                 <p style={{ marginTop: "0" }}>You are {correct ? "correct!" : "incorrect. Try again."}</p>
             }
-            <button type="button" onClick={playAudio}>Play Audio</button>
+            <button type="button" onClick={playAudio} disabled={midiIsPlaying}>{midiIsPlaying ? 'Playing...' : 'Play audio'}</button>
             {
             !answered ?
                 <button type="button" disabled>Submit</button> :
@@ -109,7 +114,7 @@ const BottomButtons = ({ answered, setAnswered, questionMidi, answerMidi, answer
                     correct ?
                         <button type="button" onClick={nextQuestion}>Next Question</button> :
                         <div style={{ display: "flex", flexDirection: "column", rowGap: "5px" }}>
-                            <button type="button" onClick={playWrongAnswer}>Play Your Answer</button>
+                            <button type="button" onClick={playWrongAnswer} disabled={midiIsPlaying}>Play Your Answer</button>
                             <button type="button" onClick={handleSubmit}>Submit</button>
                         </div>
             }

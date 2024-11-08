@@ -115,7 +115,7 @@ export const createMidi = (data) => {
     return midiData
 }
 
-export const playMidi = async (midiData) => {
+export const playMidi = async (midiData, onStart, onStop) => {
     const audioContext = new (window.AudioContext || window.webkitAudioContext)()
     const player = await Soundfont.instrument(audioContext, 'acoustic_grand_piano')
 
@@ -123,6 +123,10 @@ export const playMidi = async (midiData) => {
     const tempo = midiData.header.bpm
     const secondsPerBeat = 60 / tempo
     const ticksPerBeat = midiData.header.PPQ
+
+    if (onStart) onStart()
+
+    let totalDuration = 0
 
     midiData.tracks.forEach(track => {
         let currentTime = startTime
@@ -134,8 +138,14 @@ export const playMidi = async (midiData) => {
             if (event.type === "noteOn" && event.velocity > 0) {
                 playNote(player, event.noteNumber, event.velocity, currentTime, audioContext)
             }
+
+            totalDuration = Math.max(totalDuration, currentTime - startTime)
         })
     })
+
+    setTimeout(() => {
+        if (onStop) onStop()
+    }, totalDuration * 1000)
 }
 
 const playNote = (player, noteNumber, velocity, startTime, audioContext) => {

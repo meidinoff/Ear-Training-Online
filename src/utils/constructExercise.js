@@ -12,7 +12,7 @@ const construct = ({ clef, time_signature, notes }, context) => {
     const staveNotes = notes.map(note => {
         const staveNote = new StaveNote({ keys: note.keys, duration: note.duration })
 
-        const regex = /([#b])\1*/g
+        const regex = /(#|(?<=[a-g])b)\1*/g
         
         note.keys.forEach(key => {
             const matches = key.match(regex)

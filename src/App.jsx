@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import MusicControls from './components/MusicControls'
 import MusicCanvas from './components/MusicCanvas'
-import TestRender from './components/TestRender'
+//import { calculateInterval, findByInterval } from './music_knowledge/intervals'
 
 const App = () => {
   const [answered, setAnswered] = useState(false)
