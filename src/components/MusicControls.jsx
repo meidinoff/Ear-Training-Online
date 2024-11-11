@@ -30,7 +30,7 @@ const MusicControls = ({ answered, setAccidental, setRedraw }) => {
             <button style={buttonStyle} type="button" value="double sharp" onClick={({ target }) => chooseAccidental(target.value)}>𝄪</button>
             <button style={buttonStyle} type="button" value="sharp" onClick={({ target }) => chooseAccidental(target.value)}>#</button>
             <button style={buttonStyle} type="button" value="natural" onClick={({ target }) => chooseAccidental(target.value)}>♮</button>
-            <button style={buttonStyle} type="button" value="flat" onClick={({ target }) => chooseAccidental(target.value)}>b</button>
+            <button style={buttonStyle} type="button" value="flat" onClick={({ target }) => chooseAccidental(target.value)}>♭</button>
             <button style={buttonStyle} type="button" value="double flat" onClick={({ target }) => chooseAccidental(target.value)}>𝄫</button>
         </div>
     )

@@ -39,10 +39,5 @@ export const drawHoverNote = (context, hoverNotePitch, questionNoteX, exerciseSt
         voice.addTickables(notesList)
         new Formatter().joinVoices([voice]).format([voice], 350)
         voice.draw(context, exerciseStave)
-    
-        // const tickContent = new Vex.Flow.TickContext().setX(noteX)
-        // note.setTickContext(tickContent)
-
-        // note.draw()
     }
 }

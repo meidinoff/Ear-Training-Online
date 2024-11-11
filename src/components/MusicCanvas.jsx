@@ -8,7 +8,7 @@ import Vex from 'vexflow'
 
 const { Renderer, StaveNote, Accidental } = Vex.Flow
 
-const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, redrawNote, setRedraw, setBackgroundColor }) => {
+const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, redrawNote, setRedraw, setBackgroundColor, correct, setCorrect }) => {
     const canvasRef = useRef(null)
     const hoverCanvasRef = useRef(null)
     const rendererRef = useRef(null)
@@ -24,6 +24,7 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
     const [questionMidi, setQuestionMidi] = useState('')
     const [answerMidi, setAnswerMidi] = useState('')
     const [pitchPosition, setPitchPosition] = useState('')
+    const [noteInputTrigger, setNoteInputTrigger] = useState(false)
     const [exercise, setExercise] = useState('')
 
     useEffect(() => {
@@ -69,7 +70,7 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
         if (pitchPosition) {
             drawInputNote(pitchPosition)
         }
-    }, [pitchPosition])
+    }, [pitchPosition, noteInputTrigger])
 
     useEffect(() => {
         if (redrawNote && pitchPosition) {
@@ -168,6 +169,7 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
         console.log(pitch)
         setPitchPosition(pitch)
         console.log("pitchPosition", pitchPosition)
+        setNoteInputTrigger(prev => !prev)
         //drawInputNote(pitchPosition)
     }
 
@@ -177,7 +179,7 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
                 <div ref={canvasRef} onClick={handleClick} style={{ border: 'solid black', backgroundColor: 'white', position: 'absolute', top: '0', left: '0', right: '0', zIndex: 1 }}></div>
                 <div ref={hoverCanvasRef} style={{ position: 'absolute', top: 0, left: 0, right: '0', zIndex: 2, pointerEvents: 'none' }}></div>
             </div>
-            <BottomButtons answered={answered} setAnswered={setAnswered} questionMidi={questionMidi} answerMidi={answerMidi} answerNotes={answerNotes} inputNotes={inputNotes} setBackgroundColor={setBackgroundColor} createExercise={createExercise} />
+            <BottomButtons answered={answered} setAnswered={setAnswered} questionMidi={questionMidi} answerMidi={answerMidi} answerNotes={answerNotes} inputNotes={inputNotes} setBackgroundColor={setBackgroundColor} createExercise={createExercise} correct={correct} setCorrect={setCorrect} />
         </div>
     )
 }

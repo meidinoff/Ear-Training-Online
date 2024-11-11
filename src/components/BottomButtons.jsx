@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { playMidi } from '../utils/midi-playback'
 
-const BottomButtons = ({ answered, setAnswered, questionMidi, answerMidi, answerNotes, inputNotes, setBackgroundColor, createExercise }) => {
-    const [correct, setCorrect] = useState(null)
+const BottomButtons = ({ answered, setAnswered, questionMidi, answerMidi, answerNotes, inputNotes, setBackgroundColor, createExercise, correct, setCorrect }) => {
     const [midiIsPlaying, setMidiIsPlaying] = useState(false)
 
     const containerStyle = {
