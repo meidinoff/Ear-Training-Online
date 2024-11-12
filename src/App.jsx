@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './styles/App.css'
 import MusicControls from './components/MusicControls'
 import MusicCanvas from './components/MusicCanvas'
-import XPProgress from './components/XPProgress'
+import XPProgress from './components/xpProgress'
 //import { calculateInterval, findByInterval } from './music_knowledge/intervals'
 
 const App = () => {

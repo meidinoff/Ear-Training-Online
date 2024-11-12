@@ -7,7 +7,7 @@ const XPProgress = ({ correct }) => {
     const [levelUpXP, setLevelUpXP] = useState(50)
     const [xpIncrement, setXPIncrement] = useState(10)
     const [addingXP, setAddingXP] = useState(false)
-    const [transitionSpeed, setTransitionSpeed] = useState(2)
+    const [transitionSpeed, setTransitionSpeed] = useState(0.2)
 
     useEffect(() => {
         const levelContainer = document.querySelector(".levelContainer")
@@ -45,11 +45,11 @@ const XPProgress = ({ correct }) => {
                 newXP = 0
 
                 setTimeout(() => {
-                    setTransitionSpeed(2)
+                    setTransitionSpeed(0.2)
                 }, 2000)
             }
 
-            setTimeout(() => addXP(remainingXP - 1), (transitionSpeed * 1000) / xpIncrement)
+            setTimeout(() => addXP(remainingXP - 1), ((transitionSpeed * 1000) / xpIncrement) * 8)
             return newXP
         })
     }

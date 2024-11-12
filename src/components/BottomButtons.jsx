@@ -83,10 +83,10 @@ const BottomButtons = ({ answered, setAnswered, questionMidi, answerMidi, answer
 
         if (arraysEqual(answer, input)) {
             setCorrect(true)
-            setBackgroundColor('green')
+            setBackgroundColor('rgb(60, 200, 30)')
         } else {
             setCorrect(false)
-            setBackgroundColor('red')
+            setBackgroundColor('rgb(200, 50, 70)')
         }
     }
 
