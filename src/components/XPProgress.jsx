@@ -6,34 +6,53 @@ const XPProgress = ({ correct }) => {
     const [userXP, setUserXP] = useState(0)
     const [levelUpXP, setLevelUpXP] = useState(50)
     const [xpIncrement, setXPIncrement] = useState(10)
+    const [addingXP, setAddingXP] = useState(false)
+    const [transitionSpeed, setTransitionSpeed] = useState(2)
 
     useEffect(() => {
         const levelContainer = document.querySelector(".levelContainer")
         
-        if (correct) {
+        if (correct && !addingXP) {
             levelContainer.style.display = "block"
-            setUserXP(userXP + xpIncrement)
+            setAddingXP(true)
+            addXP(xpIncrement)
             console.log("user XP", userXP)
-        } else {
+        } else if (!correct) {
             levelContainer.style.display = "none"
         }
     }, [correct])
 
     useEffect(() => {
         const xpFill = document.querySelector(".xpFill")
-        xpFill.style.right = `${100 - ((userXP/levelUpXP) * 100)}%`
+        xpFill.style.transition = `right ${transitionSpeed}s ease-in-out`
+        xpFill.style.right = `${100 - ((userXP/levelUpXP) * 100)}%` // Fix the sync of this!
+    }, [userXP, levelUpXP])
 
-        if (userXP >= levelUpXP) {
-            console.log("triggered condition!")
-            setTimeout(() => {
-                console.log("did timeout!")
-                setUserLevel(userLevel + 1)
-                setUserXP(0)
-                setXPIncrement(xpIncrement + xpIncrement/10)
-                setLevelUpXP(levelUpXP + 20)
-            }, 2000)
+    const addXP = (remainingXP) => {
+        if (remainingXP <= 0) {
+            setAddingXP(false)
+            return
         }
-    }, [userXP])
+
+        setUserXP(prevUserXP => {
+            let newXP = prevUserXP + 1
+            if (newXP >= levelUpXP) {
+                setUserLevel(userLevel => userLevel + 1)
+                setXPIncrement(xpIncrement => xpIncrement + xpIncrement / 10)
+                setLevelUpXP(levelUpXP => levelUpXP + 20)
+
+                setTransitionSpeed(0.1)
+                newXP = 0
+
+                setTimeout(() => {
+                    setTransitionSpeed(2)
+                }, 2000)
+            }
+
+            setTimeout(() => addXP(remainingXP - 1), (transitionSpeed * 1000) / xpIncrement)
+            return newXP
+        })
+    }
 
     return (
         <div className='levelContainer'>

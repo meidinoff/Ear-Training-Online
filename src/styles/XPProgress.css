@@ -1,5 +1,6 @@
 .levelContainer  p {
     font-weight: bold;
+    color: black;
 }
 
 .levelContainer {
@@ -32,7 +33,6 @@
     right: 100%;
     background-color: gold;
     border-radius: 20px;
-    transition: right 2s ease-in-out;
 }
 
 .xpText {
