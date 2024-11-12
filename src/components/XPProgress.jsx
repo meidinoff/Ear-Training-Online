@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react'
 import '../styles/XPProgress.css'
 
-const XPProgress = ({ correct }) => {
+const XPProgress = ({ correct, addingXP, setAddingXP }) => {
     const [userLevel, setUserLevel] = useState(1)
     const [userXP, setUserXP] = useState(0)
     const [levelUpXP, setLevelUpXP] = useState(50)
     const [xpIncrement, setXPIncrement] = useState(10)
-    const [addingXP, setAddingXP] = useState(false)
-    const [transitionSpeed, setTransitionSpeed] = useState(0.2)
+    const [transitionSpeed, setTransitionSpeed] = useState(xpIncrement * 0.02)
 
     useEffect(() => {
         const levelContainer = document.querySelector(".levelContainer")
@@ -25,7 +24,7 @@ const XPProgress = ({ correct }) => {
     useEffect(() => {
         const xpFill = document.querySelector(".xpFill")
         xpFill.style.transition = `right ${transitionSpeed}s ease-in-out`
-        xpFill.style.right = `${100 - ((userXP/levelUpXP) * 100)}%` // Fix the sync of this!
+        xpFill.style.right = `${100 - ((userXP/levelUpXP) * 100)}%`
     }, [userXP, levelUpXP])
 
     const addXP = (remainingXP) => {
@@ -45,9 +44,11 @@ const XPProgress = ({ correct }) => {
                 newXP = 0
 
                 setTimeout(() => {
-                    setTransitionSpeed(0.2)
+                    setTransitionSpeed(xpIncrement * 0.02)
                 }, 2000)
             }
+
+            // Add sound effects
 
             setTimeout(() => addXP(remainingXP - 1), ((transitionSpeed * 1000) / xpIncrement) * 8)
             return newXP

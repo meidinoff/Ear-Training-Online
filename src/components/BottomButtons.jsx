@@ -1,8 +1,24 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { playMidi } from '../utils/midi-playback'
 
-const BottomButtons = ({ answered, setAnswered, questionMidi, answerMidi, answerNotes, inputNotes, setBackgroundColor, createExercise, correct, setCorrect }) => {
+const BottomButtons = ({ answered, setAnswered, questionMidi, answerMidi, answerNotes, inputNotes, setBackgroundColor, createExercise, correct, setCorrect, addingXP }) => {
     const [midiIsPlaying, setMidiIsPlaying] = useState(false)
+    const [questionIsPlaying, setQuestionIsPlaying] = useState(false)
+    const [wrongAnswerIsPlaying, setWrongAnswerIsPlaying] = useState(false)
+
+    useEffect(() => {
+        const nextButton = document.querySelector('.nextButton')
+
+        if (nextButton) {
+            if (addingXP) {
+                nextButton.disabled = true
+            } else {
+                setTimeout(() => {
+                    nextButton.disabled = false
+                }, 500)
+            }
+        }
+    }, [addingXP])
 
     const containerStyle = {
         margin: "20px auto",
@@ -13,13 +29,29 @@ const BottomButtons = ({ answered, setAnswered, questionMidi, answerMidi, answer
 
     const playAudio = () => {
         if (!midiIsPlaying) {
-            playMidi(questionMidi, () => setMidiIsPlaying(true), () => setMidiIsPlaying(false))
+            playMidi(questionMidi, 
+                () => {
+                    setMidiIsPlaying(true)
+                    setQuestionIsPlaying(true)
+                }, 
+                () => {
+                    setMidiIsPlaying(false)
+                    setQuestionIsPlaying(false)
+                })
         }
     }
 
     const playWrongAnswer = () => {
         if (!midiIsPlaying) {
-            playMidi(answerMidi, () => setMidiIsPlaying(true), () => setMidiIsPlaying(false))
+            playMidi(answerMidi, 
+                () => {
+                    setMidiIsPlaying(true)
+                    setWrongAnswerIsPlaying(true)
+                }, 
+                () => {
+                    setMidiIsPlaying(false)
+                    setWrongAnswerIsPlaying(false)
+                })
         }
     }
 
@@ -104,16 +136,16 @@ const BottomButtons = ({ answered, setAnswered, questionMidi, answerMidi, answer
                 <p style={{ margin: "0 auto" }}></p> :
                 <p style={{ marginTop: "0" }}>You are {correct ? "correct!" : "incorrect. Try again."}</p>
             }
-            <button type="button" onClick={playAudio} disabled={midiIsPlaying}>{midiIsPlaying ? 'Playing...' : 'Play audio'}</button>
+            <button type="button" onClick={playAudio} disabled={midiIsPlaying}>{questionIsPlaying ? 'Playing...' : 'Play audio'}</button>
             {
             !answered ?
                 <button type="button" disabled>Submit</button> :
                 correct === null ?
                     <button type="button" onClick={handleSubmit}>Submit</button> :
                     correct ?
-                        <button type="button" onClick={nextQuestion}>Next Question</button> :
+                        <button className="nextButton" type="button" onClick={nextQuestion}>Next Question</button> :
                         <div style={{ display: "flex", flexDirection: "column", rowGap: "5px" }}>
-                            <button type="button" onClick={playWrongAnswer} disabled={midiIsPlaying}>Play Your Answer</button>
+                            <button type="button" onClick={playWrongAnswer} disabled={midiIsPlaying}>{wrongAnswerIsPlaying ? 'Playing...' : 'Play Your Answer'}</button>
                             <button type="button" onClick={handleSubmit}>Submit</button>
                         </div>
             }
