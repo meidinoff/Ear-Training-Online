@@ -117,7 +117,14 @@ export const createMidi = (data) => {
 
 export const playMidi = async (midiData, onStart, onStop) => {
     const audioContext = new (window.AudioContext || window.webkitAudioContext)()
-    const player = await Soundfont.instrument(audioContext, 'acoustic_grand_piano')
+    let player = await Soundfont.instrument(audioContext, 'acoustic_grand_piano')
+
+    // try {
+    //     player = await Soundfont.instrument(audioContext, 'acoustic_grand_piano')
+    // } catch (error) {
+    //     window.error("You are currently offline. Please connect to the internet to continue.")
+    // }
+    
 
     const startTime = audioContext.currentTime
     const tempo = midiData.header.bpm
