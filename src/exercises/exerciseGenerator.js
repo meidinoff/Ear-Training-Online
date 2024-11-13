@@ -143,7 +143,7 @@ console.log('all', allExercises)
 
 const json = JSON.stringify(allExercises, null, 2)
 
-const path = './src/exercises/exercises.json'
+const path = './src/exercises/generatedExercises.json'
 fs.writeFile(path, json, 'utf8', (err) => {
     if (err) {
         console.error('An error occurred while writing JSON to file')

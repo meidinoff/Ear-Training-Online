@@ -1,5 +1,5 @@
 import Vex from 'vexflow'
-import chooseExercise from './chooseExercise'
+import { chooseExercise } from './chooseExercise'
 
 const { Renderer } = Vex.Flow
 

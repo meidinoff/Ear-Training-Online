@@ -1,338 +1,342 @@
 {
-  "00001": {
-    "clef": "treble",
-    "time_signature": "3/4",
-    "notes": [
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "d/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      }
-    ]
+  "Level 1": {
+    "00001": {
+      "clef": "treble",
+      "time_signature": "3/4",
+      "notes": [
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "d/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        }
+      ]
+    },
+    "00002": {
+      "clef": "treble",
+      "time_signature": "3/4",
+      "notes": [
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        }
+      ]
+    },
+    "00003": {
+      "clef": "treble",
+      "time_signature": "3/4",
+      "notes": [
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "e/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        }
+      ]
+    },
+    "00004": {
+      "clef": "treble",
+      "time_signature": "3/4",
+      "notes": [
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "d/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        }
+      ]
+    },
+    "00005": {
+      "clef": "treble",
+      "time_signature": "3/4",
+      "notes": [
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "f/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        }
+      ]
+    }
   },
-  "00002": {
-    "clef": "treble",
-    "time_signature": "3/4",
-    "notes": [
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      }
-    ]
-  },
-  "00003": {
-    "clef": "treble",
-    "time_signature": "3/4",
-    "notes": [
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "e/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      }
-    ]
-  },
-  "00004": {
-    "clef": "treble",
-    "time_signature": "3/4",
-    "notes": [
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "d/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      }
-    ]
-  },
-  "00005": {
-    "clef": "treble",
-    "time_signature": "3/4",
-    "notes": [
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "f/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      }
-    ]
-  },
-  "00006": {
-    "clef": "treble",
-    "time_signature": "3/4",
-    "notes": [
-      {
-        "keys": [
-          "f/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "e/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      }
-    ]
-  },
-  "00007": {
-    "clef": "treble",
-    "time_signature": "3/4",
-    "notes": [
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "d/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      }
-    ]
-  },
-  "00008": {
-    "clef": "treble",
-    "time_signature": "3/4",
-    "notes": [
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "d/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      }
-    ]
-  },
-  "00009": {
-    "clef": "treble",
-    "time_signature": "3/4",
-    "notes": [
-      {
-        "keys": [
-          "d/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "e/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      }
-    ]
-  },
-  "00010": {
-    "clef": "treble",
-    "time_signature": "3/4",
-    "notes": [
-      {
-        "keys": [
-          "e/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      }
-    ]
-  },
-  "00011": {
-    "clef": "treble",
-    "time_signature": "3/4",
-    "notes": [
-      {
-        "keys": [
-          "e/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "d/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      }
-    ]
-  },
-  "00012": {
-    "clef": "treble",
-    "time_signature": "3/4",
-    "notes": [
-      {
-        "keys": [
-          "e/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      }
-    ]
-  },
-  "00013": {
-    "clef": "treble",
-    "time_signature": "3/4",
-    "notes": [
-      {
-        "keys": [
-          "f/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "f/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      }
-    ]
-  },
-  "00014": {
-    "clef": "treble",
-    "time_signature": "3/4",
-    "notes": [
-      {
-        "keys": [
-          "e/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      },
-      {
-        "keys": [
-          "c/4"
-        ],
-        "duration": "q"
-      }
-    ]
+  "Level 2": {
+    "00006": {
+      "clef": "treble",
+      "time_signature": "3/4",
+      "notes": [
+        {
+          "keys": [
+            "f/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "e/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        }
+      ]
+    },
+    "00007": {
+      "clef": "treble",
+      "time_signature": "3/4",
+      "notes": [
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "d/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        }
+      ]
+    },
+    "00008": {
+      "clef": "treble",
+      "time_signature": "3/4",
+      "notes": [
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "d/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        }
+      ]
+    },
+    "00009": {
+      "clef": "treble",
+      "time_signature": "3/4",
+      "notes": [
+        {
+          "keys": [
+            "d/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "e/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        }
+      ]
+    },
+    "00010": {
+      "clef": "treble",
+      "time_signature": "3/4",
+      "notes": [
+        {
+          "keys": [
+            "e/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        }
+      ]
+    },
+    "00011": {
+      "clef": "treble",
+      "time_signature": "3/4",
+      "notes": [
+        {
+          "keys": [
+            "e/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "d/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        }
+      ]
+    },
+    "00012": {
+      "clef": "treble",
+      "time_signature": "3/4",
+      "notes": [
+        {
+          "keys": [
+            "e/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        }
+      ]
+    },
+    "00013": {
+      "clef": "treble",
+      "time_signature": "3/4",
+      "notes": [
+        {
+          "keys": [
+            "f/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "f/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        }
+      ]
+    },
+    "00014": {
+      "clef": "treble",
+      "time_signature": "3/4",
+      "notes": [
+        {
+          "keys": [
+            "e/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        },
+        {
+          "keys": [
+            "c/4"
+          ],
+          "duration": "q"
+        }
+      ]
+    }
   }
 }

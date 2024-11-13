@@ -20,7 +20,7 @@ export const drawHoverNote = (context, hoverNotePitch, questionNoteX, exerciseSt
         const note = new StaveNote({ keys: [hoverNotePitch], duration: 'q' })
         note.setStyle({ fillStyle: 'rgba(0, 0, 0, 0.1)', strokeStyle: 'none' })
 
-        console.log(exerciseData.notes)
+        //console.log(exerciseData.notes)
         // const notesList = exerciseData.notes.map(note => {
         //     return new StaveNote({ keys: [hoverNotePitch], duration: 'q' })
         // })
@@ -32,7 +32,7 @@ export const drawHoverNote = (context, hoverNotePitch, questionNoteX, exerciseSt
 
         notesList[0].setStyle({ fillStyle: 'none', strokeStyle: 'none' }).setLedgerLineStyle({ strokeStyle: 'none' })
         
-        console.log(notesList)
+        //console.log(notesList)
 
         note.setContext(context).setStave(hoverStave)
         const voice = new Voice({ num_beats: 3, beat_value: 4 })

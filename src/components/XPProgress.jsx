@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { setDifficulty } from '../utils/chooseExercise'
 import '../styles/XPProgress.css'
 
 const XPProgress = ({ correct, addingXP, setAddingXP }) => {
@@ -6,7 +7,7 @@ const XPProgress = ({ correct, addingXP, setAddingXP }) => {
     const [userXP, setUserXP] = useState(0)
     const [levelUpXP, setLevelUpXP] = useState(50)
     const [xpIncrement, setXPIncrement] = useState(10)
-    const [transitionSpeed, setTransitionSpeed] = useState(xpIncrement * 0.02)
+    const [transitionSpeed, setTransitionSpeed] = useState(xpIncrement * 0.015)
 
     useEffect(() => {
         const levelContainer = document.querySelector(".levelContainer")
@@ -15,7 +16,6 @@ const XPProgress = ({ correct, addingXP, setAddingXP }) => {
             levelContainer.style.display = "block"
             setAddingXP(true)
             addXP(xpIncrement)
-            console.log("user XP", userXP)
         } else if (!correct) {
             levelContainer.style.display = "none"
         }
@@ -26,6 +26,10 @@ const XPProgress = ({ correct, addingXP, setAddingXP }) => {
         xpFill.style.transition = `right ${transitionSpeed}s ease-in-out`
         xpFill.style.right = `${100 - ((userXP/levelUpXP) * 100)}%`
     }, [userXP, levelUpXP])
+
+    useEffect(() => {
+        setDifficulty(userLevel)
+    }, [userLevel])
 
     const addXP = (remainingXP) => {
         if (remainingXP <= 0) {
@@ -44,7 +48,7 @@ const XPProgress = ({ correct, addingXP, setAddingXP }) => {
                 newXP = 0
 
                 setTimeout(() => {
-                    setTransitionSpeed(xpIncrement * 0.02)
+                    setTransitionSpeed(xpIncrement * 0.015)
                 }, 2000)
             }
 
