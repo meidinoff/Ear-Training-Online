@@ -1,4 +1,5 @@
 import Vex from 'vexflow'
+import { constructStaveNotes } from './constructExercise'
 
 const { Stave, StaveNote, Voice, Formatter, Accidental } = Vex.Flow
 
@@ -17,18 +18,24 @@ export const drawHoverNote = (context, hoverNotePitch, questionNoteX, exerciseSt
         timeSigGlyph.setStyle({ fillStyle: 'none' })
         hoverStave.setContext(context).draw()
 
+        const notesList = constructStaveNotes(exerciseData.notes)
+        console.log("notesList", notesList)
+
         const note = new StaveNote({ keys: [hoverNotePitch], duration: 'q' })
         note.setStyle({ fillStyle: 'rgba(0, 0, 0, 0.1)', strokeStyle: 'none' })
+
+        notesList[1] = note
+        console.log("changed notesList", notesList)
 
         //console.log(exerciseData.notes)
         // const notesList = exerciseData.notes.map(note => {
         //     return new StaveNote({ keys: [hoverNotePitch], duration: 'q' })
         // })
-        const notesList = [
-            new StaveNote({ keys: ['c#/4'], duration: 'q' }).addModifier(new Accidental('#')),
-            note,
-            new StaveNote({ keys: ['d/5'], duration: 'q' }).setStyle({ fillStyle: 'none', strokeStyle: 'none' })
-        ]
+        // const notesList = [
+        //     new StaveNote({ keys: ['c#/4'], duration: 'q' }).addModifier(new Accidental('#')),
+        //     note,
+        //     new StaveNote({ keys: ['d/5'], duration: 'q' }).setStyle({ fillStyle: 'none', strokeStyle: 'none' })
+        // ]
 
         notesList[0].setStyle({ fillStyle: 'none', strokeStyle: 'none' }).setLedgerLineStyle({ strokeStyle: 'none' })
         

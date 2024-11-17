@@ -1,0 +1,24 @@
+#mascot {
+    display: block;
+    position: absolute;
+    left: 10%;
+    right: 80%;
+    top: 60px;
+    bottom: 70%;
+    z-index: 5;
+}
+
+#body {
+    height: 80px;
+    width: 40px;
+    background-color: rgb(212, 36, 12);
+    border-radius: 35%;
+}
+
+.arm {
+
+}
+
+.leg {
+
+}

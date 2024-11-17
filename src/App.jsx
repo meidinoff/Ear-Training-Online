@@ -4,6 +4,7 @@ import Notification from './components/Notification'
 import MusicControls from './components/MusicControls'
 import MusicCanvas from './components/MusicCanvas'
 import XPProgress from './components/xpProgress'
+import Mascot from './components/Mascot'
 //import { calculateInterval, findByInterval } from './music_knowledge/intervals'
 
 const App = () => {
@@ -68,6 +69,7 @@ const App = () => {
             
               </MusicCanvas>
               <XPProgress correct={correct} addingXP={addingXP} setAddingXP={setAddingXP} />
+              <Mascot />
             </div>
           </div>
       </div>
