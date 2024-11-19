@@ -1,15 +1,15 @@
 import Vex from 'vexflow'
 import { constructStaveNotes } from './constructExercise'
 
-const { Stave, StaveNote, Voice, Formatter, Accidental } = Vex.Flow
+const { Stave, StaveNote, Voice, Formatter, Accidental, KeySignature } = Vex.Flow
 
-export const drawHoverNote = (context, hoverNotePitch, questionNoteX, exerciseStave, exerciseData) => {
+export const drawHoverNote = (context, hoverNotePitch, questionNoteX, exerciseStave, exerciseData, keySignature) => {
     context.clear()
 
     if (hoverNotePitch) {
         const noteX = questionNoteX //- 16
 
-        const hoverStave = new Stave(exerciseStave.x, exerciseStave.y + 2, exerciseStave.width)
+        const hoverStave = new Stave(exerciseStave.x, exerciseStave.y + 2, exerciseStave.width).addModifier(new KeySignature(keySignature))
         hoverStave.setClef(exerciseData.clef).setTimeSignature(exerciseData.time_signature)
         hoverStave.setStyle({ strokeStyle: 'none' })
         const clefGlyph = hoverStave.getModifiers().find(modifier => modifier.attrs.type  === "Clef")

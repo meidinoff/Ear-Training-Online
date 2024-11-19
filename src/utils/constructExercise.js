@@ -3,7 +3,7 @@ import { formatNotes, drawVoices } from './noteDrawHelper'
 import { calculatePitchClassDifference, findByInterval, calculateInterval } from '../music_knowledge/intervals'
 import Vex from 'vexflow'
 
-const { Stave, StaveNote, Accidental } = Vex.Flow
+const { Stave, StaveNote, Accidental, KeySignature } = Vex.Flow
 
 export const transposeExercise = (exercise, keySignature) => {
     // const keyDistance = calculatePitchClassDifference('C', `${keySignature}`)
@@ -32,8 +32,8 @@ export const transposeExercise = (exercise, keySignature) => {
     return exercise
 }
 
-const constructExercise = ({ clef, time_signature, notes }, context) => {
-    const stave = new Stave(0, 0, 400)
+const constructExercise = ({ clef, time_signature, notes }, keySignature, context) => {
+    const stave = new Stave(0, 0, 400).addModifier(new KeySignature(keySignature))
     stave.addClef(clef).addTimeSignature(time_signature)
     stave.setContext(context).draw()
 
@@ -64,8 +64,8 @@ export const constructStaveNotes = (notes) => {
     return staveNotes
 }
 
-export const constructAnswer = (exercise, context) => { 
-    const { stave, notes } = constructExercise(exercise, context)
+export const constructAnswer = (exercise, keySignature, context) => { 
+    const { stave, notes } = constructExercise(exercise, keySignature, context)
 
     const voices = formatNotes(notes, context, stave)
     const newNotes = drawVoices(voices, context, stave)
@@ -78,8 +78,8 @@ export const constructAnswer = (exercise, context) => {
     }
 }
 
-export const constructInput = (exercise, context) => {
-    const { stave, notes } = constructExercise(exercise, context)
+export const constructInput = (exercise, keySignature, context) => {
+    const { stave, notes } = constructExercise(exercise, keySignature, context)
 
     const newNotes = replaceNote(context, stave, notes)
 

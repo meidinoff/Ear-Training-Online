@@ -6,7 +6,9 @@ const { StaveNote } = Vex.Flow
 const replaceBackground = (context, note, stave) => {
     //const boundingBox = note.getBoundingBox()
 
-    const noteX = note.getAbsoluteX()
+    //const noteX = note.getAbsoluteX()
+    const timeSignature = stave.getModifiers()[4]
+    const timeSignatureX = timeSignature['x'] + timeSignature['width']
 
     const staveTop = stave.getY()
     const staveHeight = stave.getBottomY() - staveTop
@@ -19,7 +21,8 @@ const replaceBackground = (context, note, stave) => {
     context.save()
 
     context.fillStyle = 'RGBA(48, 167, 234, 0.3)'
-    context.fillRect(noteX + 50, staveTop, 50 + 10, staveHeight)
+    //context.fillRect(noteX + 50, staveTop, 50 + 10, staveHeight)
+    context.fillRect(timeSignatureX + 97, staveTop, 50 + 10, staveHeight)
     //context.fillRect(boundingBox.x, staveTop, boundingBox.w, boundingBox.h)
 
     context.restore()

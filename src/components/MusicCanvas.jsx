@@ -26,6 +26,7 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
     const [pitchPosition, setPitchPosition] = useState('')
     const [noteInputTrigger, setNoteInputTrigger] = useState(false)
     const [exercise, setExercise] = useState('')
+    const [keySignature, setKeySignature] = useState('')
 
     useEffect(() => {
         if (canvasRef.current) {
@@ -44,7 +45,7 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
     }, [])
 
     const createExercise = () => {
-        const { stave, newNotes, context, midiData, answerNotes, exerciseData } = renderExercise(rendererRef.current)
+        const { stave, newNotes, context, midiData, answerNotes, exerciseData, keySignature } = renderExercise(rendererRef.current)
         setContext(context)
         console.log(stave)
         setStave(stave)
@@ -52,6 +53,7 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
         setQuestionMidi(midiData)
         setAnswerNotes(answerNotes)
         setExercise(exerciseData)
+        setKeySignature(keySignature)
     }
 
     useEffect(() => {
@@ -62,7 +64,7 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
         }
 
         if (notes && hoverContext.current && stave) {
-            drawHoverNote(hoverContext.current, hoverNotePitch, notes[1].getAbsoluteX(), stave, exercise)
+            drawHoverNote(hoverContext.current, hoverNotePitch, notes[1].getAbsoluteX(), stave, exercise, keySignature)
         }
     }, [hoverNotePitch, notes, stave])
 

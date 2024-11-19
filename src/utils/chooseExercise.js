@@ -47,12 +47,12 @@ export const chooseExercise = (context) => {
     console.log("chosen exercise", exercise)
     console.log("exercises length", Object.keys(exercises).length)
 
-    const transposedExercise = transposeExercise(exercise, keySignature)
+    transposeExercise(exercise, keySignature)
 
     const midiData = createMidi(exercise)
 
-    const answer = constructAnswer(exercise, context)
-    const input = constructInput(exercise, context)
+    const answer = constructAnswer(exercise, keySignature, context)
+    const input = constructInput(exercise, keySignature, context)
     
     const stave = input.stave
     const newNotes = input.newNotes
@@ -60,5 +60,5 @@ export const chooseExercise = (context) => {
 
     console.log("answer notes", answerNotes)
 
-    return { stave, newNotes, midiData, answerNotes, exerciseData: exercise }
+    return { stave, newNotes, midiData, answerNotes, exerciseData: exercise, keySignature }
 }

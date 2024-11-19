@@ -11,7 +11,7 @@ const MusicControls = ({ answered, setAccidental, setRedraw }) => {
     }
 
     const buttonStyle = {
-        flexGrow: "1"
+        flexGrow: "1",
     }
 
     const chooseAccidental = (accidental) => {
