@@ -19,13 +19,11 @@ export const drawHoverNote = (context, hoverNotePitch, questionNoteX, exerciseSt
         hoverStave.setContext(context).draw()
 
         const notesList = constructStaveNotes(exerciseData.notes)
-        console.log("notesList", notesList)
 
         const note = new StaveNote({ keys: [hoverNotePitch], duration: 'q' })
         note.setStyle({ fillStyle: 'rgba(0, 0, 0, 0.1)', strokeStyle: 'none' })
 
         notesList[1] = note
-        console.log("changed notesList", notesList)
 
         //console.log(exerciseData.notes)
         // const notesList = exerciseData.notes.map(note => {

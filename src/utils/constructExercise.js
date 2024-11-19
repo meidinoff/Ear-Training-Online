@@ -1,8 +1,36 @@
 import { replaceNote } from './replaceNote'
 import { formatNotes, drawVoices } from './noteDrawHelper'
+import { calculatePitchClassDifference, findByInterval, calculateInterval } from '../music_knowledge/intervals'
 import Vex from 'vexflow'
 
 const { Stave, StaveNote, Accidental } = Vex.Flow
+
+export const transposeExercise = (exercise, keySignature) => {
+    // const keyDistance = calculatePitchClassDifference('C', `${keySignature}`)
+    // console.log("key distance:", keyDistance)
+
+    // const transposedNotes = exercise.notes.map(note => {
+
+    // })
+
+    const keyDistance = calculateInterval('C/4', `${keySignature}/4`)
+    console.log("key distance:", keyDistance)
+
+    const transposedNotes = exercise.notes.map(note => {
+        console.log("note!!", note['keys'][0])
+        const newNote = [(findByInterval(note['keys'][0], keyDistance.split('_')[1])).toLowerCase()]
+        console.log("note:", newNote)
+
+        return {
+            "duration": "q",
+            "keys": newNote
+        }
+    })
+
+    exercise['notes'] = transposedNotes
+    
+    return exercise
+}
 
 const constructExercise = ({ clef, time_signature, notes }, context) => {
     const stave = new Stave(0, 0, 400)

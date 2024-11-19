@@ -1,5 +1,5 @@
 import exercises from '../exercises/exercises.json'
-import { constructAnswer, constructInput } from './constructExercise'
+import { constructAnswer, constructInput, transposeExercise } from './constructExercise'
 import { createMidi } from './midi-playback'
 
 let difficulty = 1
@@ -13,9 +13,16 @@ export const setDifficulty = (level) => {
     console.log("difficulty:", difficulty)
 }
 
+const chooseKeySignature = (selectedDifficulty) => {
+    const keySignatures = selectedDifficulty['key_signatures']
+
+    return keySignatures[Math.floor(Math.random() * keySignatures.length)]
+}
+
 const randomExercise = () => {
     const selectedDifficulty = exercises[`Level ${difficulty}`]
-    const json = Object.keys(selectedDifficulty)
+    const exercise_list = selectedDifficulty['exercise_list']
+    const json = Object.keys(exercise_list)
     console.log("json", json)
 
     if (completedExercises.length === json.length) {
@@ -23,20 +30,24 @@ const randomExercise = () => {
     }
 
     console.log("completed exercises:", completedExercises)
-    const exercise = selectedDifficulty[json[Math.floor(Math.random() * json.length)]]
+    const exercise = selectedDifficulty['exercise_list'][json[Math.floor(Math.random() * json.length)]]
+    console.log("exercise: ", exercise)
 
     if (completedExercises.includes(exercise)) {
         return randomExercise()
     } else {
         completedExercises.push(exercise)
-        return exercise
+        return { exercise, selectedDifficulty }
     }
 }
 
 export const chooseExercise = (context) => {
-    const exercise = randomExercise()
+    const { exercise, selectedDifficulty } = randomExercise()
+    const keySignature = chooseKeySignature(selectedDifficulty)
     console.log("chosen exercise", exercise)
     console.log("exercises length", Object.keys(exercises).length)
+
+    const transposedExercise = transposeExercise(exercise, keySignature)
 
     const midiData = createMidi(exercise)
 
@@ -46,6 +57,8 @@ export const chooseExercise = (context) => {
     const stave = input.stave
     const newNotes = input.newNotes
     const answerNotes = answer.notes
+
+    console.log("answer notes", answerNotes)
 
     return { stave, newNotes, midiData, answerNotes, exerciseData: exercise }
 }

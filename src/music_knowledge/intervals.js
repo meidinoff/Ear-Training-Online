@@ -68,6 +68,13 @@ const findEnharmonic = (targetLetter, targetPitchClass) => {
     return null
 }
 
+export const calculatePitchClassDifference = (note1, note2) => {
+    const note1Pitch = noteMap[note1]
+    const note2Pitch = noteMap[note2]
+
+    return (note2Pitch.pitchClass - note1Pitch.pitchClass) % 12
+}
+
 export const calculateInterval = (note1, note2) => {
     const noteParts = [note1, note2].map(note => {
         const noteParts = note.split('/')
@@ -77,11 +84,11 @@ export const calculateInterval = (note1, note2) => {
         return { letter, octave }
     })
 
-    const note1Pitch = noteMap[noteParts[0].letter]
-    const note2Pitch = noteMap[noteParts[1].letter]
+    const note1Pitch = noteParts[0].letter
+    const note2Pitch = noteParts[1].letter
     console.log("note input pitch classes: ", note1Pitch.pitchClass, note2Pitch.pitchClass)
 
-    const difference = (note2Pitch.pitchClass - note1Pitch.pitchClass) % 12
+    const difference = calculatePitchClassDifference(note2Pitch, note1Pitch)
     console.log("difference: ", difference)
 
     const intervalName = findKeyByValue(intervals, Math.abs(difference))
@@ -95,14 +102,16 @@ export const calculateInterval = (note1, note2) => {
 
 export const findByInterval = (startingNote, interval) => {
     const noteParts = startingNote.split('/')
-    const letter = noteParts[0]
+    const letter = (noteParts[0]).toUpperCase()
     const octave = Number(noteParts[1])
 
     const { pitchClass: note, letter: startLetter } = noteMap[letter]
     const intervalNumber = intervals[interval]
+    console.log("intervalNumber", intervalNumber)
 
     const octaveDifference = Math.floor((note + intervalNumber) / 12)
     const newPitchClass = (note + intervalNumber) % 12
+    console.log("newPitchClass", newPitchClass)
 
     const letters = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
     const startLetterIndex = letters.indexOf(startLetter)
