@@ -2,7 +2,7 @@ import exercises from '../exercises/exercises.json'
 import { constructAnswer, constructInput, transposeExercise } from './constructExercise'
 import { createMidi } from './midi-playback'
 
-let difficulty = 1
+let difficulty = 4
 const completedExercises = []
 
 export const setDifficulty = (level) => {

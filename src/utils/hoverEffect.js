@@ -18,7 +18,7 @@ export const drawHoverNote = (context, hoverNotePitch, questionNoteX, exerciseSt
         timeSigGlyph.setStyle({ fillStyle: 'none' })
         hoverStave.setContext(context).draw()
 
-        const notesList = constructStaveNotes(exerciseData.notes)
+        const notesList = constructStaveNotes(exerciseData.notes, hoverStave)
 
         const note = new StaveNote({ keys: [hoverNotePitch], duration: 'q' })
         note.setStyle({ fillStyle: 'rgba(0, 0, 0, 0.1)', strokeStyle: 'none' })
