@@ -33,7 +33,7 @@ export const transposeExercise = (exercise, keySignature) => {
     return exercise
 }
 
-const calculateKeySignature = (stave) => {
+export const calculateKeySignature = (stave) => {
     const keySignature = stave.getModifiers()[2]
     const keySigAccidentals = keySignature['accList']
 

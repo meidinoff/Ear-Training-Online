@@ -123,9 +123,23 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
         console.log('new accidental:', accidental)
 
         const newPitch = pitchPosition
-        let pitchArray = newPitch.split('/')
+        const pitchArray = newPitch.split('/')
         console.log("split", pitchArray)
-        pitchArray.splice(1, 0, accidental, '/')
+
+        // Check if there is already an accidental in StaveNote key, then replace with new accidental
+        const letterName = pitchArray[0].split('')
+        if (letterName.length > 1 && accidental) {
+            letterName.splice(1, letterName.length - 1, accidental)
+            console.log("letter name 1:", letterName)
+            const joinedLetterName = letterName.join('')
+            console.log("letter name 2:", joinedLetterName)
+            pitchArray.splice(0, 1, joinedLetterName, '/')
+            console.log("pitch array 1:", pitchArray)
+        } else {
+            pitchArray.splice(1, 0, accidental, '/')
+            console.log("pitch array 2:", pitchArray)
+        }
+
         console.log("splice:", pitchArray)
         const finalPitch = pitchArray.join('')
         console.log("newPitch: ", finalPitch)

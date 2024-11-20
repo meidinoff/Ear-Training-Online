@@ -1,3 +1,4 @@
+import { calculateKeySignature } from './constructExercise'
 import Vex from 'vexflow'
 
 const { Voice, Formatter, Beam } = Vex.Flow
@@ -9,13 +10,27 @@ export const calculatePitch = (mouseY, stave) => {
 
     //console.log((staveY - y) / noteHeight)
 
+    const keySigNotes = calculateKeySignature(stave)
+
     const pitchIndex = Math.round((staveY - mouseY) / noteHeight)
     const noteIndex = ((pitchIndex % pitches.length) + pitches.length) % pitches.length
+    const letterName = pitches[noteIndex]
+    let note = ''
+
+    if (keySigNotes.includes(`${letterName.toUpperCase()}#`)) {
+        note = `${letterName}#`
+    } else if (keySigNotes.includes(`${letterName.toUpperCase()}b`)) {
+        note = `${letterName}b`
+    } else {
+        note = letterName
+    }
+
+    // ALSO NATURALS DON'T REGISTER AS CORRECT IF INPUT AS ACCIDENTAL
 
     const octave = Math.floor(pitchIndex / pitches.length)
     const adjustedOctave = octave + 4
 
-    const key = `${pitches[noteIndex]}/${adjustedOctave}`
+    const key = `${note}/${adjustedOctave}`
     //console.log("new note: ", key)
     return key    
 }

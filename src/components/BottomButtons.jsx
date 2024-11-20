@@ -57,8 +57,23 @@ const BottomButtons = ({ answered, setAnswered, questionMidi, answerMidi, answer
 
     const returnKeysAndDur = obj => {
         const { keys, duration, ...rest } = obj
+
+        const newKeys = keys.map(key => {
+            const splitKey = key.split('/')
+            const letterName = splitKey[0].split('')
+
+            if (letterName.length > 1 && letterName[1] === 'n') {
+                letterName.splice(1, letterName.length - 1)
+                const joinedLetterName = letterName.join('')
+                splitKey.splice(0, 1, joinedLetterName, '/')
+                return splitKey.join('')
+            } else {
+                return key
+            }
+        })
+
         const values = {
-            keys,
+            keys: newKeys,
             duration
         }
         return values

@@ -52,8 +52,22 @@ const noteToMidi = (note) => {
     const letter = noteParts[0]
     const octave = Number(noteParts[1])
     console.log("LETTER", letter)
+    const splitLetter = letter.split('')
+    console.log('split letter:', splitLetter)
+    let newLetter = ''
 
-    const pitchClass = getPitchClass(letter)
+    if (splitLetter.length > 1 && splitLetter[1] === 'n') {
+        splitLetter.splice(1, splitLetter.length - 1)
+        newLetter = splitLetter.join('')
+    } else if (letter.length <= 1) {
+        newLetter = letter
+    } else {
+        newLetter = splitLetter.join('')
+    }
+
+    console.log("new letter:", newLetter)
+
+    const pitchClass = getPitchClass(newLetter)
 
     const midiNumber = (octave + 1) * 12 + pitchClass
 
