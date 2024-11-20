@@ -36,6 +36,7 @@ export const drawHoverNote = (context, hoverNotePitch, questionNoteX, exerciseSt
         // ]
 
         notesList[0].setStyle({ fillStyle: 'none', strokeStyle: 'none' }).setLedgerLineStyle({ strokeStyle: 'none' })
+        notesList[2].setStyle({ fillStyle: 'none', strokeStyle: 'none' }).setLedgerLineStyle({ strokeStyle: 'none' })
         
         //console.log(notesList)
 
