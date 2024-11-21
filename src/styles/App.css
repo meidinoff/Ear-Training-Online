@@ -5,32 +5,6 @@
   box-sizing: border-box;
 }
 
-header {
-  display: block;
-  align-items: stretch;
-  text-align: center;
-  margin: 0;
-  width: 100%;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  padding: 10px 0;
-  background-color: lightskyblue;
-}
-
-header > div {
-  margin: 0 auto;
-  padding: 0 5vw;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#menu-bar {
-  display: flex;
-  column-gap: 10px;
-}
-
 #background {
   position: absolute;
   left: 0;

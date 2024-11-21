@@ -5,12 +5,16 @@ const { Voice, Formatter, Beam } = Vex.Flow
 
 export const calculatePitch = (mouseY, stave) => {
     const pitches = ['c', 'd', 'e', 'f', 'g', 'a', 'b']
+    const clef = stave.getClef()
+    console.log("clef:", clef)
+    const keySigNotes = calculateKeySignature(stave)
+    
     const staveY = stave.getYForLine(5)
     const noteHeight = (stave.getYForLine(4) - stave.getYForLine(0)) / 4 / 2
 
     //console.log((staveY - y) / noteHeight)
 
-    const keySigNotes = calculateKeySignature(stave)
+    // FIGURE OUT HOW TO CALCULATE IN OTHER CLEFS
 
     const pitchIndex = Math.round((staveY - mouseY) / noteHeight)
     const noteIndex = ((pitchIndex % pitches.length) + pitches.length) % pitches.length
@@ -24,8 +28,6 @@ export const calculatePitch = (mouseY, stave) => {
     } else {
         note = letterName
     }
-
-    // ALSO NATURALS DON'T REGISTER AS CORRECT IF INPUT AS ACCIDENTAL
 
     const octave = Math.floor(pitchIndex / pitches.length)
     const adjustedOctave = octave + 4
@@ -55,6 +57,8 @@ export const drawVoices = (voices, context, stave) => {
     voices.forEach(voice => {
         voice.draw(context, stave)
     })
+
+    console.log("VOICES:", voices)
 
     return notes
 }

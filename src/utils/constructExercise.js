@@ -34,8 +34,11 @@ export const transposeExercise = (exercise, keySignature) => {
 }
 
 export const calculateKeySignature = (stave) => {
-    const keySignature = stave.getModifiers()[2]
+    const modifiers = stave.getModifiers()
+    const keySignature = modifiers.find(modifier => modifier.getAttribute('type') === 'KeySignature')
+    console.log(keySignature)
     const keySigAccidentals = keySignature['accList']
+    console.log(keySigAccidentals)
 
     if (keySigAccidentals.length !== 0) {
         const keySigAccidentalType = keySigAccidentals[0]['type']
@@ -46,6 +49,7 @@ export const calculateKeySignature = (stave) => {
 
         return keySigNotes
     } else {
+        console.log("key of C")
         return ''
     }
 }
@@ -57,7 +61,7 @@ const constructExercise = ({ clef, time_signature, notes }, keySignature, contex
 
     console.log(stave.getModifiers())
 
-    const staveNotes = constructStaveNotes(notes, stave)
+    const staveNotes = constructStaveNotes(notes, clef, stave)
 
     return {
         stave,
@@ -65,11 +69,14 @@ const constructExercise = ({ clef, time_signature, notes }, keySignature, contex
     }
 }
 
-export const constructStaveNotes = (notes, stave) => {
+export const constructStaveNotes = (notes, clef, stave) => {
     const keySigNotes = calculateKeySignature(stave)
+    console.log(keySigNotes)
+    console.log("made it this far")
 
     const staveNotes = notes.map(note => {
-        const staveNote = new StaveNote({ keys: note.keys, duration: note.duration })
+        const staveNote = new StaveNote({ keys: note.keys, duration: note.duration, clef: clef })
+        console.log("STAVE NOTE", staveNote)
 
         const regex = /(#|(?<=[a-g])b)\1*/g
         
@@ -98,7 +105,7 @@ export const constructStaveNotes = (notes, stave) => {
 export const constructAnswer = (exercise, keySignature, context) => { 
     const { stave, notes } = constructExercise(exercise, keySignature, context)
 
-    const voices = formatNotes(notes, context, stave)
+    const voices = formatNotes(notes)
     const newNotes = drawVoices(voices, context, stave)
 
     context.clear()

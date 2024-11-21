@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './styles/App.css'
+import Header from './components/Header'
 import Notification from './components/Notification'
 import MusicControls from './components/MusicControls'
 import MusicCanvas from './components/MusicCanvas'
@@ -38,15 +39,7 @@ const App = () => {
 
   return (
     <div>
-      <header>
-        <div style={{ display: "flex" }}>
-          <h1 style={{ fontSize: "36px" }}>Aural Skills Training</h1>
-          <div id="menu-bar" style={{ display: "flex" }}>
-            <a href="">About</a>
-            <a href="">GitHub</a>
-          </div>
-        </div>
-      </header>
+      <Header />
       <div id="background" style={{ backgroundColor: backgroundColor}}>
         {/* {!isOnline ? 
           <Notification status="offline"/> :
