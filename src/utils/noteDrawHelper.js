@@ -16,8 +16,39 @@ export const calculatePitch = (mouseY, stave) => {
 
     // FIGURE OUT HOW TO CALCULATE IN OTHER CLEFS
 
+    let noteIndex, octaveDisplacement
     const pitchIndex = Math.round((staveY - mouseY) / noteHeight)
-    const noteIndex = ((pitchIndex % pitches.length) + pitches.length) % pitches.length
+    console.log("PITCH INDEX", pitchIndex, pitchIndex % pitches.length)
+    // const noteIndex = ((pitchIndex % pitches.length) + pitches.length) % pitches.length
+    switch (clef) {
+        case 'bass':
+            noteIndex = ((((pitchIndex + 2) % pitches.length) + pitches.length) % pitches.length)
+            octaveDisplacement = -2
+
+            if (noteIndex <= 1) {
+                octaveDisplacement += 1
+            }
+            break
+        case 'alto':
+            noteIndex = ((((pitchIndex + 1) % pitches.length) + pitches.length) % pitches.length)
+            octaveDisplacement = -1
+
+            if (noteIndex === 0) {
+                octaveDisplacement += 1
+            }
+            break
+        case 'tenor':
+            noteIndex = ((((pitchIndex - 1) % pitches.length) + pitches.length) % pitches.length)
+            octaveDisplacement = -1
+
+            if (noteIndex === 6) {
+                octaveDisplacement -= 1
+            }
+            break
+        default:
+            noteIndex = ((pitchIndex % pitches.length) + pitches.length) % pitches.length
+            octaveDisplacement = 0
+    }
     const letterName = pitches[noteIndex]
     let note = ''
 
@@ -30,7 +61,7 @@ export const calculatePitch = (mouseY, stave) => {
     }
 
     const octave = Math.floor(pitchIndex / pitches.length)
-    const adjustedOctave = octave + 4
+    const adjustedOctave = octave + 4 + octaveDisplacement
 
     const key = `${note}/${adjustedOctave}`
     //console.log("new note: ", key)

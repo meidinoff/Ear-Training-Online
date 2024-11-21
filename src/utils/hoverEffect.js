@@ -20,7 +20,7 @@ export const drawHoverNote = (context, hoverNotePitch, questionNoteX, exerciseSt
 
         const notesList = constructStaveNotes(exerciseData.notes, exerciseData.clef, hoverStave)
 
-        const note = new StaveNote({ keys: [hoverNotePitch], duration: 'q' })
+        const note = new StaveNote({ keys: [hoverNotePitch], duration: 'q', clef: exerciseData.clef })
         note.setStyle({ fillStyle: 'rgba(0, 0, 0, 0.1)', strokeStyle: 'none' })
 
         notesList[1] = note

@@ -88,6 +88,7 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
         pt.y = event.clientY
         const svgP = pt.matrixTransform(svg.getScreenCTM().inverse())
 
+        console.log("USED STAVE:", stave)
         return calculatePitch(svgP.y, stave)
     }
 
@@ -147,9 +148,9 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
         const updatedNotes = notes.map((note, index) => {
             if (index === 1) {
                 if (accidental) {
-                    return new StaveNote({ keys: [finalPitch], duration: 'q' }).addModifier(new Accidental(accidental))
+                    return new StaveNote({ keys: [finalPitch], duration: 'q', clef: stave.clef }).addModifier(new Accidental(accidental))
                 } else {
-                    return new StaveNote({ keys: [finalPitch], duration: 'q' })
+                    return new StaveNote({ keys: [finalPitch], duration: 'q', clef: stave.clef })
                 }
             }
             return note
@@ -182,7 +183,7 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
 
     const handleClick = (event) => {
         const pitch = getMousePitchPos(event)
-        console.log(pitch)
+        console.log("handle click", pitch)
         setPitchPosition(pitch)
         console.log("pitchPosition", pitchPosition)
         setNoteInputTrigger(prev => !prev)
