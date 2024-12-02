@@ -9,6 +9,7 @@ const BottomButtons = ({ isAnswered, setIsAnswered, questionMidi, answerMidi, an
     useEffect(() => {
         const nextButton = document.querySelector('.nextButton')
 
+        // Prevent moving to next exercise until xp bar animation is over
         if (nextButton) {
             if (isAddingXP) {
                 nextButton.disabled = true
@@ -27,7 +28,9 @@ const BottomButtons = ({ isAnswered, setIsAnswered, questionMidi, answerMidi, an
         rowGap: "5px"
     }
 
+    // Play the notes that the user should dictate
     const playAudio = () => {
+        // MIDI playback can only begin if MIDI is not already playing back
         if (!midiIsPlaying) {
             playMidi(questionMidi, 
                 () => {
@@ -41,6 +44,7 @@ const BottomButtons = ({ isAnswered, setIsAnswered, questionMidi, answerMidi, an
         }
     }
 
+    // If user is incorrect, allow playback of their guess
     const playWrongAnswer = () => {
         if (!midiIsPlaying) {
             playMidi(answerMidi, 
@@ -62,6 +66,7 @@ const BottomButtons = ({ isAnswered, setIsAnswered, questionMidi, answerMidi, an
             const splitKey = key.split('/')
             const letterName = splitKey[0].split('')
 
+            // Remove natural 'n' symbol for VexFlow 'key'
             if (letterName.length > 1 && letterName[1] === 'n') {
                 letterName.splice(1, letterName.length - 1)
                 const joinedLetterName = letterName.join('')
@@ -79,7 +84,9 @@ const BottomButtons = ({ isAnswered, setIsAnswered, questionMidi, answerMidi, an
         return values
     }
 
+    // Array comparison
     const arraysEqual = (array1, array2) => {
+        // Must be same length
         if (array1.length !== array2.length) {
             console.log(`Array lengths differ: ${array1.length} vs ${array2.length}`)
             return false
@@ -87,6 +94,7 @@ const BottomButtons = ({ isAnswered, setIsAnswered, questionMidi, answerMidi, an
 
         const array2Copy = [...array2]
 
+        // Check each index for deep equality
         for (let obj1 of array1) {
             const index = array2Copy.findIndex(obj2 => deepEqual(obj1, obj2))
             if (index === -1) {
@@ -122,6 +130,7 @@ const BottomButtons = ({ isAnswered, setIsAnswered, questionMidi, answerMidi, an
     }
 
     const handleSubmit = () => {
+        // Check and compare answer key with user input
         const answer = answerNotes.map(returnKeysAndDur)
         const input = inputNotes.map(returnKeysAndDur)
 
@@ -136,6 +145,7 @@ const BottomButtons = ({ isAnswered, setIsAnswered, questionMidi, answerMidi, an
         }
     }
 
+    // Choose new exercise and reset appearance
     const nextQuestion = () => {
         createExercise()
         setBackgroundColor('white')

@@ -4,6 +4,7 @@ import { createRenderer, renderExercise } from '../utils/renderCanvas'
 import { drawHoverNote } from '../utils/hoverEffect'
 import { calculatePitch, drawNotes } from '../utils/noteDrawHelper'
 import { createMidi } from '../utils/midi-playback'
+
 import Vex from 'vexflow'
 
 const { Renderer, StaveNote, Accidental } = Vex.Flow
@@ -29,6 +30,7 @@ const MusicCanvas = ({ isAnswered, setIsAnswered, inputAccidental, resetAccident
     const [keySignature, setKeySignature] = useState('')
 
     useEffect(() => {
+        // Create VexFlow renderer at start and first exercise
         if (canvasRef.current) {
             if (!rendererRef.current) {
                 rendererRef.current = createRenderer(canvasRef.current)
@@ -45,6 +47,7 @@ const MusicCanvas = ({ isAnswered, setIsAnswered, inputAccidental, resetAccident
     }, [])
 
     const createExercise = () => {
+        // Choose exercise and set states
         const { stave, newNotes, context, midiData, answerNotes, exerciseData, keySignature } = renderExercise(rendererRef.current)
         setContext(context)
 
@@ -57,6 +60,7 @@ const MusicCanvas = ({ isAnswered, setIsAnswered, inputAccidental, resetAccident
     }
 
     useEffect(() => {
+        // Re-render the mouse hover overlay every time the mouse moves on the canvas
         if (hoverCanvasRef.current && !hoverRendererRef.current) {
             hoverRendererRef.current = new Renderer(hoverCanvasRef.current, Renderer.Backends.SVG)
             hoverContext.current = hoverRendererRef.current.getContext()
@@ -69,12 +73,14 @@ const MusicCanvas = ({ isAnswered, setIsAnswered, inputAccidental, resetAccident
     }, [hoverNotePitch, notes, stave])
 
     useEffect(() => {
+        // Re-calculate the pitch of the mouse position every time the mouse moves on the canvas
         if (pitchPosition) {
             drawInputNote(pitchPosition)
         }
     }, [pitchPosition, noteInputTrigger])
 
     useEffect(() => {
+        // Only draw the note when the mouse position changes
         if (redrawNote && pitchPosition) {
             drawInputNote(pitchPosition)
             setRedraw(false)
@@ -82,13 +88,14 @@ const MusicCanvas = ({ isAnswered, setIsAnswered, inputAccidental, resetAccident
     }, [redrawNote])
 
     const getMousePitchPos = (event) => {
+        // Get mouse coordinate position on canvas
         const svg = canvasRef.current.querySelector('svg')
         const pt = svg.createSVGPoint()
         pt.x = event.clientX
         pt.y = event.clientY
         const svgP = pt.matrixTransform(svg.getScreenCTM().inverse())
 
-
+        // Return the note name the mouse y position correlates to
         return calculatePitch(svgP.y, stave)
     }
 
@@ -99,6 +106,7 @@ const MusicCanvas = ({ isAnswered, setIsAnswered, inputAccidental, resetAccident
     }
 
     const drawInputNote = () => {
+        // Set accidental from buttons
         let accidental = ''
 
         switch (inputAccidental) {
@@ -122,10 +130,8 @@ const MusicCanvas = ({ isAnswered, setIsAnswered, inputAccidental, resetAccident
         }
 
 
-
         const newPitch = pitchPosition
         const pitchArray = newPitch.split('/')
-
 
         // Check if there is already an accidental in StaveNote key, then replace with new accidental
         const letterName = pitchArray[0].split('')
@@ -140,10 +146,9 @@ const MusicCanvas = ({ isAnswered, setIsAnswered, inputAccidental, resetAccident
             pitchArray.splice(1, 0, accidental, '/')
         }
 
-
         const finalPitch = pitchArray.join('')
 
-
+        // Render notes with accidentals chosen from user buttons
         const updatedNotes = notes.map((note, index) => {
             if (index === 1) {
                 if (accidental) {
@@ -160,6 +165,7 @@ const MusicCanvas = ({ isAnswered, setIsAnswered, inputAccidental, resetAccident
         setNotes(newDrawnNotes)
         setInputNotes(newDrawnNotes)
 
+        // Create MIDI data from user input
         const midiData = createMidi({
             "clef": "treble",
             "time_signature": "3/4",
@@ -176,7 +182,6 @@ const MusicCanvas = ({ isAnswered, setIsAnswered, inputAccidental, resetAccident
         setAnswerMidi(midiData)
         setIsAnswered(true)
         resetAccidental('')
-
     }
 
     const handleClick = (event) => {
@@ -185,7 +190,6 @@ const MusicCanvas = ({ isAnswered, setIsAnswered, inputAccidental, resetAccident
         setPitchPosition(pitch)
 
         setNoteInputTrigger(prev => !prev)
-        //drawInputNote(pitchPosition)
     }
 
     return (

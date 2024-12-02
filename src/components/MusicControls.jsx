@@ -13,8 +13,8 @@ const MusicControls = ({ isAnswered, setAccidental, setRedraw }) => {
     }
 
     const chooseAccidental = (accidental) => {
-        console.log("accidental: ", accidental)
-
+        // Button functionality is contextual to whether or not the user has input a note yet
+        // setAccidental() will re-render <MusicCanvas />
         if (isAnswered) {
             setAccidental(accidental)
             setRedraw(true)
