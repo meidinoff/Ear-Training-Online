@@ -1,9 +1,18 @@
-import { createRoot } from 'react-dom/client'
-import './styles/index.css'
+//import './styles/index.css'
+import './styles/about.css'
 import Header from './components/Header'
+import { Helmet } from 'react-helmet'
 
 const About = () => (
     <>
+        <Helmet>
+            <title>Ear Training Online - About Page</title>
+            <meta
+            name="description"
+            content="Info about the Ear Training Online
+            open-source project."
+            />
+        </Helmet>
         <Header />
         <div id="content">
             <h2>About Ear Training Online</h2>
@@ -24,6 +33,4 @@ const About = () => (
     </>
 )
 
-createRoot(document.getElementById('root')).render(
-    <About />
-)
+export default About

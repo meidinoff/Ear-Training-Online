@@ -5,7 +5,7 @@ const Header = () => (
         <div style={{ display: "flex" }}>
           <h1 id="title" style={{ fontSize: "36px" }}><a href="../../index.html" style={{}}>Ear Training Online</a></h1>
           <div id="menu-bar" style={{ display: "flex" }}>
-            <a href="../../about.html">About</a>
+            <a href="/Ear-Training-Online/About">About</a>
             <a href="">GitHub</a>
           </div>
         </div>

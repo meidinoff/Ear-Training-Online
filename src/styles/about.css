@@ -1,3 +1,7 @@
+#root {
+    text-align: left;
+}
+
 #content {
     box-sizing: border-box;
     display: block;
