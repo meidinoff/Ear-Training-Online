@@ -6,19 +6,18 @@ const { Voice, Formatter, Beam } = Vex.Flow
 export const calculatePitch = (mouseY, stave) => {
     const pitches = ['c', 'd', 'e', 'f', 'g', 'a', 'b']
     const clef = stave.getClef()
-    console.log("clef:", clef)
+
     const keySigNotes = calculateKeySignature(stave)
     
     const staveY = stave.getYForLine(5)
     const noteHeight = (stave.getYForLine(4) - stave.getYForLine(0)) / 4 / 2
 
-    //console.log((staveY - y) / noteHeight)
 
-    // FIGURE OUT HOW TO CALCULATE IN OTHER CLEFS
+
 
     let noteIndex, octaveDisplacement
     const pitchIndex = Math.round((staveY - mouseY) / noteHeight)
-    console.log("PITCH INDEX", pitchIndex, pitchIndex % pitches.length)
+
     // const noteIndex = ((pitchIndex % pitches.length) + pitches.length) % pitches.length
     switch (clef) {
         case 'bass':
@@ -64,7 +63,7 @@ export const calculatePitch = (mouseY, stave) => {
     const adjustedOctave = octave + 4 + octaveDisplacement
 
     const key = `${note}/${adjustedOctave}`
-    //console.log("new note: ", key)
+
     return key    
 }
 
@@ -88,8 +87,6 @@ export const drawVoices = (voices, context, stave) => {
     voices.forEach(voice => {
         voice.draw(context, stave)
     })
-
-    console.log("VOICES:", voices)
 
     return notes
 }

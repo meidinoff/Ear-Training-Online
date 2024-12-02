@@ -86,10 +86,10 @@ export const calculateInterval = (note1, note2) => {
 
     const note1Pitch = noteParts[0].letter
     const note2Pitch = noteParts[1].letter
-    console.log("note input pitch classes: ", note1Pitch.pitchClass, note2Pitch.pitchClass)
+
 
     const difference = calculatePitchClassDifference(note2Pitch, note1Pitch)
-    console.log("difference: ", difference)
+
 
     const intervalName = findKeyByValue(intervals, Math.abs(difference))
 
@@ -107,11 +107,10 @@ export const findByInterval = (startingNote, interval) => {
 
     const { pitchClass: note, letter: startLetter } = noteMap[letter]
     const intervalNumber = intervals[interval]
-    console.log("intervalNumber", intervalNumber)
 
     const octaveDifference = Math.floor((note + intervalNumber) / 12)
     const newPitchClass = (note + intervalNumber) % 12
-    console.log("newPitchClass", newPitchClass)
+
 
     const letters = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
     const startLetterIndex = letters.indexOf(startLetter)

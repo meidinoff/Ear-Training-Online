@@ -6,55 +6,68 @@ const XPProgress = ({ correct, addingXP, setAddingXP }) => {
     const [userLevel, setUserLevel] = useState(1)
     const [userXP, setUserXP] = useState(0)
     const [levelUpXP, setLevelUpXP] = useState(50)
-    const [xpIncrement, setXPIncrement] = useState(10)
-    const [transitionSpeed, setTransitionSpeed] = useState(xpIncrement * 0.015)
+    const [templateXPIncrement, setTemplateXPIncrement] = useState(10)
+    const [actualXPIncrement, setActualXPIncrement] = useState(templateXPIncrement)
+    const [transitionSpeed, setTransitionSpeed] = useState(templateXPIncrement * 0.015)
 
     useEffect(() => {
+        // Select XP progress bar and only make visible after getting an answer correct
         const levelContainer = document.querySelector(".levelContainer")
         
         if (correct && !addingXP) {
             levelContainer.style.display = "block"
             setAddingXP(true)
-            addXP(xpIncrement)
+            setActualXPIncrement(templateXPIncrement)
+            addXP(actualXPIncrement)
+        } else if (!correct && correct !== null) {
+            setActualXPIncrement(templateXPIncrement / 2)
         } else if (!correct) {
             levelContainer.style.display = "none"
         }
     }, [correct])
 
     useEffect(() => {
+        // Activate XP fill animation
         const xpFill = document.querySelector(".xpFill")
         xpFill.style.transition = `right ${transitionSpeed}s ease-in-out`
         xpFill.style.right = `${100 - ((userXP/levelUpXP) * 100)}%`
     }, [userXP, levelUpXP])
 
     useEffect(() => {
+        // Increase difficulty every time user levels up
         setDifficulty(userLevel)
     }, [userLevel])
 
     const addXP = (remainingXP) => {
+        // Stop looping this function when all necessary XP has been added to progress bar
         if (remainingXP <= 0) {
             setAddingXP(false)
             return
         }
-
+        
         setUserXP(prevUserXP => {
+            // Repeatedly add 1XP so that the conditional below can check if it is time for level up
             let newXP = prevUserXP + 1
+
+            // Check if it is time to level up
             if (newXP >= levelUpXP) {
+                // Increase level, XP acquired for each correct answer, and XP needed to level up again
                 setUserLevel(userLevel => userLevel + 1)
-                setXPIncrement(xpIncrement => xpIncrement + xpIncrement / 10)
+                setTemplateXPIncrement(templateXPIncrement => templateXPIncrement + templateXPIncrement / 10)
                 setLevelUpXP(levelUpXP => levelUpXP + 20)
 
+                // Make transition from full bar to 0 nearly instant
                 setTransitionSpeed(0.1)
                 newXP = 0
 
+                // Reset transition speed
                 setTimeout(() => {
-                    setTransitionSpeed(xpIncrement * 0.015)
+                    setTransitionSpeed(templateXPIncrement * 0.015)
                 }, 2000)
             }
 
-            // Add sound effects
-
-            setTimeout(() => addXP(remainingXP - 1), ((transitionSpeed * 1000) / xpIncrement) * 8)
+            // Recursively loop function after animation finished until all XP has been added
+            setTimeout(() => addXP(remainingXP - 1), ((transitionSpeed * 1000) / templateXPIncrement) * 8)
             return newXP
         })
     }

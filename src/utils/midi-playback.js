@@ -51,9 +51,9 @@ const noteToMidi = (note) => {
     const noteParts = note.split('/')
     const letter = noteParts[0]
     const octave = Number(noteParts[1])
-    console.log("LETTER", letter)
+
     const splitLetter = letter.split('')
-    console.log('split letter:', splitLetter)
+
     let newLetter = ''
 
     if (splitLetter.length > 1 && splitLetter[1] === 'n') {
@@ -65,7 +65,7 @@ const noteToMidi = (note) => {
         newLetter = splitLetter.join('')
     }
 
-    console.log("new letter:", newLetter)
+
 
     const pitchClass = getPitchClass(newLetter)
 
@@ -124,7 +124,7 @@ export const createMidi = (data) => {
         ]
     }
 
-    console.log(midiData)
+
 
     return midiData
 }

@@ -8,19 +8,18 @@ const { Stave, StaveNote, Accidental, KeySignature } = Vex.Flow
 
 export const transposeExercise = (exercise, keySignature) => {
     // const keyDistance = calculatePitchClassDifference('C', `${keySignature}`)
-    // console.log("key distance:", keyDistance)
+
 
     // const transposedNotes = exercise.notes.map(note => {
 
     // })
 
     const keyDistance = calculateInterval('C/4', `${keySignature}/4`)
-    console.log("key distance:", keyDistance)
 
     const transposedNotes = exercise.notes.map(note => {
-        console.log("note!!", note['keys'][0])
+
         const newNote = [(findByInterval(note['keys'][0], keyDistance.split('_')[1])).toLowerCase()]
-        console.log("note:", newNote)
+
 
         return {
             "duration": "q",
@@ -36,20 +35,18 @@ export const transposeExercise = (exercise, keySignature) => {
 export const calculateKeySignature = (stave) => {
     const modifiers = stave.getModifiers()
     const keySignature = modifiers.find(modifier => modifier.getAttribute('type') === 'KeySignature')
-    console.log(keySignature)
+
     const keySigAccidentals = keySignature['accList']
-    console.log(keySigAccidentals)
+
 
     if (keySigAccidentals.length !== 0) {
         const keySigAccidentalType = keySigAccidentals[0]['type']
         const keySigAccidentalNumber = keySigAccidentals.length
         const keySigNotes = keys[keySigAccidentalType][keySigAccidentalNumber]
-        console.log("accidental number:", keySigAccidentalNumber)
-        console.log("key match:", keySigNotes)
+
 
         return keySigNotes
     } else {
-        console.log("key of C")
         return ''
     }
 }
@@ -59,7 +56,7 @@ const constructExercise = ({ clef, time_signature, notes }, keySignature, contex
     stave.addClef(clef).addTimeSignature(time_signature)
     stave.setContext(context).draw()
 
-    console.log(stave.getModifiers())
+
 
     const staveNotes = constructStaveNotes(notes, clef, stave)
 
@@ -71,12 +68,9 @@ const constructExercise = ({ clef, time_signature, notes }, keySignature, contex
 
 export const constructStaveNotes = (notes, clef, stave) => {
     const keySigNotes = calculateKeySignature(stave)
-    console.log(keySigNotes)
-    console.log("made it this far")
 
     const staveNotes = notes.map(note => {
         const staveNote = new StaveNote({ keys: note.keys, duration: note.duration, clef: clef })
-        console.log("STAVE NOTE", staveNote)
 
         const regex = /(#|(?<=[a-g])b)\1*/g
         
@@ -90,7 +84,6 @@ export const constructStaveNotes = (notes, clef, stave) => {
                 convertedNote = noteLetter :
                 convertedNote = noteLetter + noteParts[1]
 
-            console.log('key', convertedNote)
             if (matches && !keySigNotes.includes(convertedNote)) {
                 staveNote.addModifier(new Accidental(matches))
             }

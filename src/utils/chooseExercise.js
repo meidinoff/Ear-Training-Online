@@ -9,8 +9,6 @@ export const setDifficulty = (level) => {
     if (exercises[`Level ${level}`]) {
         difficulty = level
     }
-    
-    console.log("difficulty:", difficulty)
 }
 
 const chooseKeySignature = (selectedDifficulty) => {
@@ -23,22 +21,22 @@ const randomExercise = () => {
     const selectedDifficulty = exercises[`Level ${difficulty}`]
     const exercise_list = selectedDifficulty['exercise_list']
     const json = Object.keys(exercise_list)
-    console.log("json", json)
 
     if (completedExercises.length === json.length) {
         completedExercises.length = 0
     }
 
-    console.log("completed exercises:", completedExercises)
-    const exercise = selectedDifficulty['exercise_list'][json[Math.floor(Math.random() * json.length)]]
-    console.log("exercise: ", exercise)
+    let exercise
 
-    if (completedExercises.includes(exercise)) {
-        return randomExercise()
-    } else {
-        completedExercises.push(exercise)
-        return { exercise, selectedDifficulty }
-    }
+    do {
+        console.log("Choose!")
+        exercise = selectedDifficulty['exercise_list'][json[Math.floor(Math.random() * json.length)]]
+    } while (completedExercises.includes(exercise))
+    
+    completedExercises.push(exercise)
+    console.log(completedExercises)
+        
+    return { exercise: { ...exercise }, selectedDifficulty }
 }
 
 const changeClef = (exercise) => {
@@ -56,7 +54,6 @@ const changeClef = (exercise) => {
         clef = difficultClefs[Math.floor(Math.random() * difficultClefs.length)]
     }
 
-    console.log("choosen clef:", clef)
     let octaveDisplacementOptions = []
 
     switch (clef) {
@@ -73,34 +70,36 @@ const changeClef = (exercise) => {
             octaveDisplacementOptions = [0, 1]
     }
 
+    console.log("octaveDisplacementOptions:", octaveDisplacementOptions)
     const octaveDisplacement = octaveDisplacementOptions[Math.floor(Math.random() * octaveDisplacementOptions.length)]
+    console.log("octaveDisplacement:", octaveDisplacement)
 
     newNotes = exercise.notes.map(note => {
         const pitch = note.keys[0]
         const splitPitch = pitch.split('/')
+        console.log("splitPitch:", splitPitch)
         const octave = Number(splitPitch[1]) + octaveDisplacement
+        console.log("octave:", octave)
         splitPitch.splice(1, 1, '/', octave)
         const newPitch = splitPitch.join('')
     
         return {'duration': 'q', 'keys': [newPitch]}
     })
 
-    console.log("NEW NOTES", newNotes)
 
-    exercise.clef = clef
-    exercise.notes = newNotes
+    // exercise.clef = clef
+    // exercise.notes = newNotes
 
-    console.log("NEW EXERCISE", exercise)
 
-    return exercise
+    return { ...exercise, clef, notes: newNotes }
 }
 
 export const chooseExercise = (context) => {
     const { exercise, selectedDifficulty } = randomExercise()
+    console.log("Original:", exercise)
     const keySignature = chooseKeySignature(selectedDifficulty)
     const newExercise = changeClef(exercise)
-    console.log("chosen exercise", exercise)
-    console.log("exercises length", Object.keys(exercises).length)
+    console.log("New:", newExercise)
 
     transposeExercise(newExercise, keySignature)
 

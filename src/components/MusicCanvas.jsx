@@ -47,7 +47,7 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
     const createExercise = () => {
         const { stave, newNotes, context, midiData, answerNotes, exerciseData, keySignature } = renderExercise(rendererRef.current)
         setContext(context)
-        console.log(stave)
+
         setStave(stave)
         setNotes(newNotes)
         setQuestionMidi(midiData)
@@ -88,7 +88,7 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
         pt.y = event.clientY
         const svgP = pt.matrixTransform(svg.getScreenCTM().inverse())
 
-        console.log("USED STAVE:", stave)
+
         return calculatePitch(svgP.y, stave)
     }
 
@@ -121,29 +121,28 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
                 accidental = ''
         }
 
-        console.log('new accidental:', accidental)
+
 
         const newPitch = pitchPosition
         const pitchArray = newPitch.split('/')
-        console.log("split", pitchArray)
+
 
         // Check if there is already an accidental in StaveNote key, then replace with new accidental
         const letterName = pitchArray[0].split('')
         if (letterName.length > 1 && accidental) {
             letterName.splice(1, letterName.length - 1, accidental)
-            console.log("letter name 1:", letterName)
+   
             const joinedLetterName = letterName.join('')
-            console.log("letter name 2:", joinedLetterName)
+
             pitchArray.splice(0, 1, joinedLetterName, '/')
-            console.log("pitch array 1:", pitchArray)
+
         } else {
             pitchArray.splice(1, 0, accidental, '/')
-            console.log("pitch array 2:", pitchArray)
         }
 
-        console.log("splice:", pitchArray)
+
         const finalPitch = pitchArray.join('')
-        console.log("newPitch: ", finalPitch)
+
 
         const updatedNotes = notes.map((note, index) => {
             if (index === 1) {
@@ -160,8 +159,7 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
 
         setNotes(newDrawnNotes)
         setInputNotes(newDrawnNotes)
-        console.log("NOTES: ", notes)
-        console.log("newDrawnNotes", newDrawnNotes)
+
         const midiData = createMidi({
             "clef": "treble",
             "time_signature": "3/4",
@@ -174,18 +172,18 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
                 return notes
             }, [])
         })
-        console.log("answer midi data:", midiData)
+
         setAnswerMidi(midiData)
         setAnswered(true)
         resetAccidental('')
-        console.log('answered: ', answered)
+
     }
 
     const handleClick = (event) => {
         const pitch = getMousePitchPos(event)
-        console.log("handle click", pitch)
+
         setPitchPosition(pitch)
-        console.log("pitchPosition", pitchPosition)
+
         setNoteInputTrigger(prev => !prev)
         //drawInputNote(pitchPosition)
     }

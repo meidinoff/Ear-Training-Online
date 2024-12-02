@@ -125,8 +125,7 @@ const BottomButtons = ({ answered, setAnswered, questionMidi, answerMidi, answer
         const answer = answerNotes.map(returnKeysAndDur)
         const input = inputNotes.map(returnKeysAndDur)
 
-        console.log("correct answer:", answer)
-        console.log("your answer:", input)
+        // TODO: Add sound effects for submit button feedback (depending on correctness)
 
         if (arraysEqual(answer, input)) {
             setCorrect(true)
