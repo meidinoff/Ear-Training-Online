@@ -12,7 +12,7 @@ const About = () => (
                 href="https://www.maxeidinoff.com/"
                 target="_blank"
                 rel="noreferrer noopener"
-                >Max Eidinoff</a> as a resource for music students to practice melodic dictation. This
+                >Max Eidinoff</a> as a resource for music students, particularly those taking AP Music Theory or an intro undergraduate aural skills course, to practice melodic dictation. This
                 current version is an early prototype that will hopefully continue to
                 grow. User feedback and community code contributions are very much
                 welcome! The goal with this project is to eventually scale difficulty

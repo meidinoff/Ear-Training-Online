@@ -1,6 +1,6 @@
 import { replaceNote } from './replaceNote'
 import { formatNotes, drawVoices } from './noteDrawHelper'
-import { calculatePitchClassDifference, findByInterval, calculateInterval } from '../music_knowledge/intervals'
+import { findByInterval, calculateInterval } from '../music_knowledge/intervals'
 import { keys } from '../music_knowledge/scales'
 import Vex from 'vexflow'
 
