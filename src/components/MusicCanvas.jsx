@@ -8,7 +8,7 @@ import Vex from 'vexflow'
 
 const { Renderer, StaveNote, Accidental } = Vex.Flow
 
-const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, redrawNote, setRedraw, setBackgroundColor, correct, setCorrect, addingXP }) => {
+const MusicCanvas = ({ isAnswered, setIsAnswered, inputAccidental, resetAccidental, redrawNote, setRedraw, setBackgroundColor, isCorrect, setIsCorrect, isAddingXP }) => {
     const canvasRef = useRef(null)
     const hoverCanvasRef = useRef(null)
     const rendererRef = useRef(null)
@@ -174,7 +174,7 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
         })
 
         setAnswerMidi(midiData)
-        setAnswered(true)
+        setIsAnswered(true)
         resetAccidental('')
 
     }
@@ -194,7 +194,7 @@ const MusicCanvas = ({ answered, setAnswered, inputAccidental, resetAccidental, 
                 <div ref={canvasRef} onClick={handleClick} style={{ border: 'solid black', backgroundColor: 'white', position: 'absolute', top: '0', left: '0', right: '0', zIndex: 1 }}></div>
                 <div ref={hoverCanvasRef} style={{ position: 'absolute', top: 0, left: 0, right: '0', zIndex: 2, pointerEvents: 'none' }}></div>
             </div>
-            <BottomButtons answered={answered} setAnswered={setAnswered} questionMidi={questionMidi} answerMidi={answerMidi} answerNotes={answerNotes} inputNotes={inputNotes} setBackgroundColor={setBackgroundColor} createExercise={createExercise} correct={correct} setCorrect={setCorrect} addingXP={addingXP} />
+            <BottomButtons isAnswered={isAnswered} setIsAnswered={setIsAnswered} questionMidi={questionMidi} answerMidi={answerMidi} answerNotes={answerNotes} inputNotes={inputNotes} setBackgroundColor={setBackgroundColor} createExercise={createExercise} isCorrect={isCorrect} setIsCorrect={setIsCorrect} isAddingXP={isAddingXP} />
         </div>
     )
 }

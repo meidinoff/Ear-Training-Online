@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { setDifficulty } from '../utils/chooseExercise'
 import '../styles/XPProgress.css'
 
-const XPProgress = ({ correct, addingXP, setAddingXP }) => {
+const XPProgress = ({ isCorrect, isAddingXP, setIsAddingXP }) => {
     const [userLevel, setUserLevel] = useState(1)
     const [userXP, setUserXP] = useState(0)
     const [levelUpXP, setLevelUpXP] = useState(50)
@@ -14,17 +14,17 @@ const XPProgress = ({ correct, addingXP, setAddingXP }) => {
         // Select XP progress bar and only make visible after getting an answer correct
         const levelContainer = document.querySelector(".levelContainer")
         
-        if (correct && !addingXP) {
+        if (isCorrect && !isAddingXP) {
             levelContainer.style.display = "block"
-            setAddingXP(true)
+            setIsAddingXP(true)
             setActualXPIncrement(templateXPIncrement)
             addXP(actualXPIncrement)
-        } else if (!correct && correct !== null) {
+        } else if (!isCorrect && isCorrect !== null) {
             setActualXPIncrement(templateXPIncrement / 2)
-        } else if (!correct) {
+        } else if (!isCorrect) {
             levelContainer.style.display = "none"
         }
-    }, [correct])
+    }, [isCorrect])
 
     useEffect(() => {
         // Activate XP fill animation
@@ -41,7 +41,7 @@ const XPProgress = ({ correct, addingXP, setAddingXP }) => {
     const addXP = (remainingXP) => {
         // Stop looping this function when all necessary XP has been added to progress bar
         if (remainingXP <= 0) {
-            setAddingXP(false)
+            setIsAddingXP(false)
             return
         }
         

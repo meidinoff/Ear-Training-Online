@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { playMidi } from '../utils/midi-playback'
 
-const BottomButtons = ({ answered, setAnswered, questionMidi, answerMidi, answerNotes, inputNotes, setBackgroundColor, createExercise, correct, setCorrect, addingXP }) => {
+const BottomButtons = ({ isAnswered, setIsAnswered, questionMidi, answerMidi, answerNotes, inputNotes, setBackgroundColor, createExercise, isCorrect, setIsCorrect, isAddingXP }) => {
     const [midiIsPlaying, setMidiIsPlaying] = useState(false)
     const [questionIsPlaying, setQuestionIsPlaying] = useState(false)
     const [wrongAnswerIsPlaying, setWrongAnswerIsPlaying] = useState(false)
@@ -10,7 +10,7 @@ const BottomButtons = ({ answered, setAnswered, questionMidi, answerMidi, answer
         const nextButton = document.querySelector('.nextButton')
 
         if (nextButton) {
-            if (addingXP) {
+            if (isAddingXP) {
                 nextButton.disabled = true
             } else {
                 setTimeout(() => {
@@ -18,7 +18,7 @@ const BottomButtons = ({ answered, setAnswered, questionMidi, answerMidi, answer
                 }, 500)
             }
         }
-    }, [addingXP])
+    }, [isAddingXP])
 
     const containerStyle = {
         margin: "20px auto",
@@ -128,10 +128,10 @@ const BottomButtons = ({ answered, setAnswered, questionMidi, answerMidi, answer
         // TODO: Add sound effects for submit button feedback (depending on correctness)
 
         if (arraysEqual(answer, input)) {
-            setCorrect(true)
+            setIsCorrect(true)
             setBackgroundColor('rgb(60, 200, 30)')
         } else {
-            setCorrect(false)
+            setIsCorrect(false)
             setBackgroundColor('rgb(200, 50, 70)')
         }
     }
@@ -139,24 +139,24 @@ const BottomButtons = ({ answered, setAnswered, questionMidi, answerMidi, answer
     const nextQuestion = () => {
         createExercise()
         setBackgroundColor('white')
-        setCorrect(null)
-        setAnswered(false)
+        setIsCorrect(null)
+        setIsAnswered(false)
     }
 
     return (
         <div style={containerStyle}>
             {
-                correct === null ?
+                isCorrect === null ?
                 <p style={{ margin: "0 auto" }}></p> :
-                <p style={{ marginTop: "0" }}>You are {correct ? "correct!" : "incorrect. Try again."}</p>
+                <p style={{ marginTop: "0" }}>You are {isCorrect ? "correct!" : "incorrect. Try again."}</p>
             }
             <button type="button" onClick={playAudio} disabled={midiIsPlaying}>{questionIsPlaying ? 'Playing...' : 'Play audio'}</button>
             {
-            !answered ?
+            !isAnswered ?
                 <button type="button" disabled>Submit</button> :
-                correct === null ?
+                isCorrect === null ?
                     <button type="button" onClick={handleSubmit}>Submit</button> :
-                    correct ?
+                    isCorrect ?
                         <button className="nextButton" type="button" onClick={nextQuestion}>Next Question</button> :
                         <div style={{ display: "flex", flexDirection: "column", rowGap: "5px" }}>
                             <button type="button" onClick={playWrongAnswer} disabled={midiIsPlaying}>{wrongAnswerIsPlaying ? 'Playing...' : 'Play Your Answer'}</button>

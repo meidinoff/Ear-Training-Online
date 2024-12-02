@@ -1,3 +1,4 @@
+// Nested objects provide info for calculating correct enharmonic spellings in tonal contexts
 const noteMap = {
     'C': { pitchClass: 0, letter: 'C' },
     'C#': { pitchClass: 1, letter: 'C' },
@@ -32,7 +33,7 @@ const noteMap = {
     'B': { pitchClass: 11, letter: 'B' }
 }
 
-// pitch class distance from origin note
+// Pitch class distance from origin note
 const intervals = {
     unison: 0,
     m2: 1,
@@ -51,6 +52,7 @@ const intervals = {
     M9: 14
 }
 
+// Helper for searching through objects
 const findKeyByValue = (object, number) => {
     for (const [name, value] of Object.entries(object)) {
         if (value === number) {
@@ -59,6 +61,7 @@ const findKeyByValue = (object, number) => {
     }
 }
 
+// Calculates the correct enharmonic spelling from noteMap data
 const findEnharmonic = (targetLetter, targetPitchClass) => {
     for (const [note, { pitchClass, letter }] of Object.entries(noteMap)) {
         if (letter === targetLetter && pitchClass === targetPitchClass) {
@@ -76,6 +79,7 @@ export const calculatePitchClassDifference = (note1, note2) => {
 }
 
 export const calculateInterval = (note1, note2) => {
+    // Split VexFlow 'keys' into letter name and octave number
     const noteParts = [note1, note2].map(note => {
         const noteParts = note.split('/')
         const letter = noteParts[0]
@@ -87,9 +91,7 @@ export const calculateInterval = (note1, note2) => {
     const note1Pitch = noteParts[0].letter
     const note2Pitch = noteParts[1].letter
 
-
     const difference = calculatePitchClassDifference(note2Pitch, note1Pitch)
-
 
     const intervalName = findKeyByValue(intervals, Math.abs(difference))
 
@@ -101,20 +103,22 @@ export const calculateInterval = (note1, note2) => {
 }
 
 export const findByInterval = (startingNote, interval) => {
+    // Split VexFlow 'key' into note name and octave number
     const noteParts = startingNote.split('/')
     const letter = (noteParts[0]).toUpperCase()
     const octave = Number(noteParts[1])
 
+    // Calculate pitch class distance of interval away from startingNote
     const { pitchClass: note, letter: startLetter } = noteMap[letter]
     const intervalNumber = intervals[interval]
 
+    // Change octave number if modulo wrap around occurs
     const octaveDifference = Math.floor((note + intervalNumber) / 12)
     const newPitchClass = (note + intervalNumber) % 12
 
-
     const letters = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
-    const startLetterIndex = letters.indexOf(startLetter)
-    const intervalSteps = [0, 2, 4, 5, 7, 9, 11, 12]
+    const startLetterIndex = letters.indexOf(startLetter) // Pitch class of startingNote
+    const intervalSteps = [0, 2, 4, 5, 7, 9, 11, 12] // Major scale pitch classes
     const intervalIndex = intervalSteps.findIndex(steps => steps >= intervalNumber % 12)
     const targetLetterIndex = (startLetterIndex + intervalIndex) % 7
     const targetLetter = letters[targetLetterIndex]

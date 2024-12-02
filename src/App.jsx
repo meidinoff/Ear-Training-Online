@@ -7,12 +7,12 @@ import XPProgress from './components/xpProgress'
 import Mascot from './components/Mascot'
 
 const App = () => {
-  const [answered, setAnswered] = useState(false)
-  const [correct, setCorrect] = useState(null)
-  const [accidental, setAccidental] = useState('')
+  const [isAnswered, setIsAnswered] = useState(false)
+  const [isCorrect, setIsCorrect] = useState(null)
+  const [accidental, setAccidental] = useState('') // Input accidental
   const [redrawNote, setRedraw] = useState(false)
   const [backgroundColor, setBackgroundColor] = useState('white')
-  const [addingXP, setAddingXP] = useState(false)
+  const [isAddingXP, setIsAddingXP] = useState(false)
 
   return (
     <div>
@@ -21,11 +21,11 @@ const App = () => {
         <div id="appArea">
             <p style={{ color: "black" }}>Input the missing note below</p>
             <div>
-              <MusicControls answered={answered} setAccidental={setAccidental} setRedraw={setRedraw} />
-              <MusicCanvas answered={answered} setAnswered={setAnswered} inputAccidental={accidental} resetAccidental={setAccidental} redrawNote={redrawNote} setRedraw={setRedraw} setBackgroundColor={setBackgroundColor} correct={correct} setCorrect={setCorrect} addingXP={addingXP} >
+              <MusicControls isAnswered={isAnswered} setAccidental={setAccidental} setRedraw={setRedraw} />
+              <MusicCanvas isAnswered={isAnswered} setIsAnswered={setIsAnswered} inputAccidental={accidental} resetAccidental={setAccidental} redrawNote={redrawNote} setRedraw={setRedraw} setBackgroundColor={setBackgroundColor} isCorrect={isCorrect} setIsCorrect={setIsCorrect} isAddingXP={isAddingXP} >
             
               </MusicCanvas>
-              <XPProgress correct={correct} addingXP={addingXP} setAddingXP={setAddingXP} />
+              <XPProgress isCorrect={isCorrect} isAddingXP={isAddingXP} setIsAddingXP={setIsAddingXP} />
               <Mascot />
             </div>
           </div>

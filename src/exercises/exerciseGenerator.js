@@ -1,3 +1,6 @@
+// THIS SCRIPT WAS AN EARLY IDEA I HAD FOR ALGORITHMICALLY GENERATING EXERCISES
+// IT IS NOT CURRENTLY UTILISED AND I ENDED UP HAND CRAFTING THE EXERCISES.JSON
+
 import fs from 'fs'
 //import { findByInterval, calculateInterval } from '../music_knowledge/intervals'
 import scales from '../music_knowledge/scales.js'

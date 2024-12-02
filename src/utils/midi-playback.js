@@ -1,5 +1,6 @@
 import Soundfont from 'soundfont-player'
 
+// Relative pitch classes of note names
 const noteMap = {
     'Cbb': -2,
     'Cb': -1,
@@ -48,14 +49,16 @@ const getPitchClass = (note) => {
 }
 
 const noteToMidi = (note) => {
+    // Split VexFlow 'key' into note name and octave number
     const noteParts = note.split('/')
     const letter = noteParts[0]
     const octave = Number(noteParts[1])
 
-    const splitLetter = letter.split('')
+    const splitLetter = letter.split('') // Separate letter from accidental
 
     let newLetter = ''
 
+    // Ignore natural accidental for midi calculation
     if (splitLetter.length > 1 && splitLetter[1] === 'n') {
         splitLetter.splice(1, splitLetter.length - 1)
         newLetter = splitLetter.join('')
@@ -66,14 +69,15 @@ const noteToMidi = (note) => {
     }
 
 
-
     const pitchClass = getPitchClass(newLetter)
 
+    // Convert note name to midi note number
     const midiNumber = (octave + 1) * 12 + pitchClass
 
     return midiNumber
 }
 
+// Generates JSON for MIDI playback
 export const createMidi = (data) => {
     const bpm = 100
     const timeSignature = data.time_signature.split('/')
@@ -125,21 +129,15 @@ export const createMidi = (data) => {
     }
 
 
-
     return midiData
 }
 
+// Plays audio in window
 export const playMidi = async (midiData, onStart, onStop) => {
     const audioContext = new (window.AudioContext || window.webkitAudioContext)()
-    let player = await Soundfont.instrument(audioContext, 'acoustic_grand_piano')
-
-    // try {
-    //     player = await Soundfont.instrument(audioContext, 'acoustic_grand_piano')
-    // } catch (error) {
-    //     window.error("You are currently offline. Please connect to the internet to continue.")
-    // }
+    let player = await Soundfont.instrument(audioContext, 'acoustic_grand_piano') // Get piano playback sound
     
-
+    // Read data from MIDI JSON for playback
     const startTime = audioContext.currentTime
     const tempo = midiData.header.bpm
     const secondsPerBeat = 60 / tempo
@@ -149,6 +147,7 @@ export const playMidi = async (midiData, onStart, onStop) => {
 
     let totalDuration = 0
 
+    // Dynamically plays each note in JSON
     midiData.tracks.forEach(track => {
         let currentTime = startTime
 
@@ -160,10 +159,12 @@ export const playMidi = async (midiData, onStart, onStop) => {
                 playNote(player, event.noteNumber, event.velocity, currentTime, audioContext)
             }
 
+            // Calculate duration of MIDI playback (in milliseconds)
             totalDuration = Math.max(totalDuration, currentTime - startTime)
         })
     })
 
+    // Stop playback after track is finished
     setTimeout(() => {
         if (onStop) onStop()
     }, totalDuration * 1000)

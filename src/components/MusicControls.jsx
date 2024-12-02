@@ -1,6 +1,4 @@
-
-
-const MusicControls = ({ answered, setAccidental, setRedraw }) => {
+const MusicControls = ({ isAnswered, setAccidental, setRedraw }) => {
 
     const containerStyle = {
         marginBottom: "10px",
@@ -17,7 +15,7 @@ const MusicControls = ({ answered, setAccidental, setRedraw }) => {
     const chooseAccidental = (accidental) => {
         console.log("accidental: ", accidental)
 
-        if (answered) {
+        if (isAnswered) {
             setAccidental(accidental)
             setRedraw(true)
         } else {
