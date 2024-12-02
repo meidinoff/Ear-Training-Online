@@ -2,7 +2,7 @@
   "name": "aural-training",
   "private": true,
   "version": "0.1.0",
-  "homepage": "https://localhost:5173/Ear-Training-Online/",
+  "homepage": "https://meidinoff.github.io/Ear-Training-Online/",
   "type": "module",
   "scripts": {
     "dev": "vite",
