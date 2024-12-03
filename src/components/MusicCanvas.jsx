@@ -195,7 +195,7 @@ const MusicCanvas = ({ isAnswered, setIsAnswered, inputAccidental, resetAccident
     return (
         <div style={{ position: 'relative' }}>
             <div onMouseMove={handleMouseMove} style={{ position: 'relative', margin: '20px auto', height: '130px' }}>
-                <div ref={canvasRef} onClick={handleClick} style={{ border: 'solid black', backgroundColor: 'white', position: 'absolute', top: '0', left: '0', right: '0', zIndex: 1 }}></div>
+                <div ref={canvasRef} onClick={handleClick} style={{ border: '2px solid black', backgroundColor: 'white', position: 'absolute', top: '0', left: '0', right: '0', zIndex: 1 }}></div>
                 <div ref={hoverCanvasRef} style={{ position: 'absolute', top: 0, left: 0, right: '0', zIndex: 2, pointerEvents: 'none' }}></div>
             </div>
             <BottomButtons isAnswered={isAnswered} setIsAnswered={setIsAnswered} questionMidi={questionMidi} answerMidi={answerMidi} answerNotes={answerNotes} inputNotes={inputNotes} setBackgroundColor={setBackgroundColor} createExercise={createExercise} isCorrect={isCorrect} setIsCorrect={setIsCorrect} isAddingXP={isAddingXP} />
