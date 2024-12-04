@@ -171,6 +171,7 @@ export const playMidi = async (midiData, onStart, onStop) => {
 }
 
 const playNote = (player, noteNumber, velocity, startTime, audioContext) => {
+    console.log(player, audioContext, noteNumber)
     const duration = 0.65
     player.play(noteNumber, audioContext.currentTime + (startTime - audioContext. currentTime), { gain: velocity / 127, duration })
 }
