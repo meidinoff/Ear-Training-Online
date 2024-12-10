@@ -14,7 +14,7 @@ Run the following lines in the terminal from the project's root directory to ins
 ## Dependencies
 
 - [VexFlow](https://github.com/0xfe/vexflow)
-- [soundfont-player](https://github.com/danigb/soundfont-player)
+- [Tone.js](https://github.com/Tonejs/Tone.js)
 
 ## GNU General Public License
 
