@@ -20,7 +20,7 @@ const App = () => {
       <div id="background" style={{ backgroundColor: backgroundColor}}>
         <div id="appArea">
             <p style={{ color: "black" }}>Input the missing note below</p>
-            <p style={{ color: "black", fontWeight: "bold" }}>If on an iOS device, Silent Mode must be off to play audio</p>
+            <p style={{ color: "black", fontWeight: "bold" }}>If using an iOS device, Silent Mode must be off to play audio</p>
             <div>
               <MusicControls isAnswered={isAnswered} setAccidental={setAccidental} setRedraw={setRedraw} />
               <MusicCanvas isAnswered={isAnswered} setIsAnswered={setIsAnswered} inputAccidental={accidental} resetAccidental={setAccidental} redrawNote={redrawNote} setRedraw={setRedraw} setBackgroundColor={setBackgroundColor} isCorrect={isCorrect} setIsCorrect={setIsCorrect} isAddingXP={isAddingXP} >
