@@ -136,10 +136,19 @@ export const createMidi = (data) => {
 // Plays audio in window
 export const playMidi = async (midiData, onStart, onStop) => {
     await Tone.start()
+
+    if (window.AudioContext || window.webkitAudioContext) {
+        console.log("Web Audio API is supported.");
+    } else {
+        console.error("Web Audio API is not supported in this browser.");
+    }
     
     const sampler = new Tone.Sampler({
-        urls: paths
+        urls: paths,
+        onload: () => console.log("Sampler loaded successfully"),
+        onerror: (error) => console.error("Error:", error)
     }).toDestination()
+    
     
     // Read data from MIDI JSON for playback
     const startTime = Tone.now()
@@ -160,7 +169,6 @@ export const playMidi = async (midiData, onStart, onStop) => {
                 const eventTime = (event.deltaTime / ticksPerBeat) * secondsPerBeat
                 currentTime += eventTime
     
-                console.log("In track event loop")
                 if (event.type === "noteOn" && event.velocity > 0) {
                     playNote(sampler, event.noteNumber, event.velocity, currentTime)
                 }
