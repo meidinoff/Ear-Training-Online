@@ -50,9 +50,9 @@ const changeClef = (exercise) => {
     let newNotes = []
 
     // Randomly choose clef based on difficulty
-    if (difficulty < 2) {
+    if (difficulty < 5) {
         clef = easyClefs[Math.floor(Math.random() * easyClefs.length)]
-    } else if (difficulty < 4) {
+    } else if (difficulty < 7) {
         clef = mediumClefs[Math.floor(Math.random() * mediumClefs.length)]
     } else {
         clef = difficultClefs[Math.floor(Math.random() * difficultClefs.length)]

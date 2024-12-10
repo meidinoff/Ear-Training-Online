@@ -5,7 +5,7 @@ import '../styles/XPProgress.css'
 const XPProgress = ({ isCorrect, isAddingXP, setIsAddingXP }) => {
     const [userLevel, setUserLevel] = useState(1)
     const [userXP, setUserXP] = useState(0)
-    const [levelUpXP, setLevelUpXP] = useState(50)
+    const [levelUpXP, setLevelUpXP] = useState(40)
     const [templateXPIncrement, setTemplateXPIncrement] = useState(10) // Amount of XP the user gains for correctly answering the question the 1st time
     const [actualXPIncrement, setActualXPIncrement] = useState(templateXPIncrement) // XP the user actually gains (decreases if user is incorrect)
     const [transitionSpeed, setTransitionSpeed] = useState(templateXPIncrement * 0.015) // Animation duration
