@@ -12,10 +12,10 @@
   top: 0;
   bottom: 0;
   height: 100vh;
-  margin: 100px auto 0;
+  margin: 75px auto 0;
   padding: 50px 0; /* TODO: Find a real fix so that the size of the render decreases on phone */
   text-align: center;
-  z-index: -1;
+  z-index: 0;
 }
 
 #appArea {
@@ -27,5 +27,6 @@
 @media screen and (min-width: 500px) {
   #background {
     padding: 50px 5rem 0;
+    margin: 100px auto 0;
   }
 }
