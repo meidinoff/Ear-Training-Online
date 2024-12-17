@@ -1,5 +1,4 @@
-import * as Tone from 'tone'
-import paths from './sample_paths'
+import Soundfont from 'soundfont-player'
 
 // Relative pitch classes of note names
 const noteMap = {
@@ -135,6 +134,7 @@ export const createMidi = (data) => {
 
 // Plays audio in window
 export const playMidi = async (midiData, onStart, onStop) => {
+<<<<<<< HEAD
     await Tone.start()
 
     if (window.AudioContext || window.webkitAudioContext) {
@@ -148,10 +148,14 @@ export const playMidi = async (midiData, onStart, onStop) => {
         onload: () => console.log("Sampler loaded successfully"),
         onerror: (error) => console.error("Error:", error)
     }).toDestination()
+=======
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)()
+    let player = await Soundfont.instrument(audioContext, 'acoustic_grand_piano') // Get piano playback sound
+>>>>>>> parent of 7e844b4 (Replaced soundfont-player with tone.js)
     
     
     // Read data from MIDI JSON for playback
-    const startTime = Tone.now()
+    const startTime = audioContext.currentTime
     const tempo = midiData.header.bpm
     const secondsPerBeat = 60 / tempo
     const ticksPerBeat = midiData.header.PPQ
@@ -159,6 +163,7 @@ export const playMidi = async (midiData, onStart, onStop) => {
     if (onStart) onStart()
 
     let totalDuration = 0
+<<<<<<< HEAD
     
     Tone.loaded().then(() => {
         // Dynamically plays each note in JSON
@@ -176,19 +181,33 @@ export const playMidi = async (midiData, onStart, onStop) => {
                 // Calculate duration of MIDI playback (in milliseconds)
                 totalDuration = Math.max(totalDuration, currentTime - startTime)
             })
+=======
+
+    // Dynamically plays each note in JSON
+    midiData.tracks.forEach(track => {
+        let currentTime = startTime
+
+        track.events.forEach(event => {
+            const eventTime = (event.deltaTime / ticksPerBeat) * secondsPerBeat
+            currentTime += eventTime
+
+            if (event.type === "noteOn" && event.velocity > 0) {
+                playNote(player, event.noteNumber, event.velocity, currentTime, audioContext)
+            }
+
+            // Calculate duration of MIDI playback (in milliseconds)
+            totalDuration = Math.max(totalDuration, currentTime - startTime)
+>>>>>>> parent of 7e844b4 (Replaced soundfont-player with tone.js)
         })
-    
-        // Stop playback after track is finished
-        setTimeout(() => {
-            if (onStop) onStop()
-        }, totalDuration * 1000)
     })
+
+    // Stop playback after track is finished
+    setTimeout(() => {
+        if (onStop) onStop()
+    }, totalDuration * 1000)
 }
 
-const playNote = (sampler, noteNumber, velocity, startTime) => {
-    const duration = 0.65 // Note duration in seconds
-    const note = Tone.Frequency(noteNumber, "midi").toNote()
-    
-    sampler.triggerAttack(note, startTime, 3)
-    sampler.triggerRelease(note, startTime + duration)
+const playNote = (player, noteNumber, velocity, startTime, audioContext) => {
+    const duration = 0.65
+    player.play(noteNumber, audioContext.currentTime + (startTime - audioContext. currentTime), { gain: velocity / 127, duration })
 }
