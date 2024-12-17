@@ -3,7 +3,7 @@ import './styles/App.css'
 import Header from './components/Header'
 import MusicControls from './components/MusicControls'
 import MusicCanvas from './components/MusicCanvas'
-import XPProgress from './components/xpProgress'
+import XPProgress from './components/XPProgress'
 import Mascot from './components/Mascot'
 
 const App = () => {
