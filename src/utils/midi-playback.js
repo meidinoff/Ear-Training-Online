@@ -134,25 +134,8 @@ export const createMidi = (data) => {
 
 // Plays audio in window
 export const playMidi = async (midiData, onStart, onStop) => {
-<<<<<<< HEAD
-    await Tone.start()
-
-    if (window.AudioContext || window.webkitAudioContext) {
-        console.log("Web Audio API is supported.");
-    } else {
-        console.error("Web Audio API is not supported in this browser.");
-    }
-    
-    const sampler = new Tone.Sampler({
-        urls: paths,
-        onload: () => console.log("Sampler loaded successfully"),
-        onerror: (error) => console.error("Error:", error)
-    }).toDestination()
-=======
     const audioContext = new (window.AudioContext || window.webkitAudioContext)()
-    let player = await Soundfont.instrument(audioContext, 'acoustic_grand_piano') // Get piano playback sound
->>>>>>> parent of 7e844b4 (Replaced soundfont-player with tone.js)
-    
+    let player = await Soundfont.instrument(audioContext, 'acoustic_grand_piano') // Get piano playback sound    
     
     // Read data from MIDI JSON for playback
     const startTime = audioContext.currentTime
@@ -163,25 +146,6 @@ export const playMidi = async (midiData, onStart, onStop) => {
     if (onStart) onStart()
 
     let totalDuration = 0
-<<<<<<< HEAD
-    
-    Tone.loaded().then(() => {
-        // Dynamically plays each note in JSON
-        midiData.tracks.forEach(track => {
-            let currentTime = startTime
-    
-            track.events.forEach(event => {
-                const eventTime = (event.deltaTime / ticksPerBeat) * secondsPerBeat
-                currentTime += eventTime
-    
-                if (event.type === "noteOn" && event.velocity > 0) {
-                    playNote(sampler, event.noteNumber, event.velocity, currentTime)
-                }
-    
-                // Calculate duration of MIDI playback (in milliseconds)
-                totalDuration = Math.max(totalDuration, currentTime - startTime)
-            })
-=======
 
     // Dynamically plays each note in JSON
     midiData.tracks.forEach(track => {
@@ -197,7 +161,6 @@ export const playMidi = async (midiData, onStart, onStop) => {
 
             // Calculate duration of MIDI playback (in milliseconds)
             totalDuration = Math.max(totalDuration, currentTime - startTime)
->>>>>>> parent of 7e844b4 (Replaced soundfont-player with tone.js)
         })
     })
 
