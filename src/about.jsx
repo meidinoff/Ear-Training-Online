@@ -2,6 +2,7 @@ import './styles/about.css'
 import Header from './components/Header'
 import { Helmet } from 'react-helmet'
 
+// Fixed file name
 const About = () => (
     <>
         <Helmet>
